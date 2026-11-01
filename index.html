@@ -184,6 +184,23 @@ textarea{min-height:100px;resize:vertical}
 .memo-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
 .memo-photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block}
 
+/* Miniguida */
+.mg-search{display:grid;gap:10px;margin-bottom:16px}
+.mg-list{display:grid;gap:10px}
+.mg{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:8px;min-width:0;scroll-margin-top:64px}
+.mg-head{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.mg-head h3{margin-right:auto}
+.mg > p{font-size:.95rem}
+.mg details{border-top:1px solid var(--line);padding-top:8px}
+.mg summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--piccadilly);padding-block:4px;list-style-position:outside}
+.mg-facts{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:10px}
+.mg-facts li{font-size:.93rem;display:grid;gap:2px}
+.mg-facts b{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.mg-links{font-size:.88rem;color:var(--muted);margin-top:12px}
+.mg-links a{font-weight:700;color:var(--piccadilly)}
+.mg-link{font-size:.85rem;font-weight:700;color:var(--hp);text-decoration:none;justify-self:start}
+.mg-link:hover{text-decoration:underline}
+
 /* Stampa: A4, tutto visibile, niente barra */
 @media print{
   @page{size:A4;margin:12mm 12mm 14mm}
@@ -195,10 +212,12 @@ textarea{min-height:100px;resize:vertical}
   h1{font-size:26pt}
   h2{font-size:15pt}
   section{padding-block:10px 0;break-inside:auto}
-  #giovedi,#venerdi,#sabato,#domenica,#trasporti,#hp007,#prenotazioni{break-before:page}
+  #giovedi,#venerdi,#sabato,#domenica,#miniguida,#trasporti,#hp007,#prenotazioni{break-before:page}
   #giovedi{break-before:auto}
   .stop{padding-block:5px;break-inside:avoid;grid-template-columns:44px 1fr}
-  .card,.note,.alt,.ride,.plist li,tr{break-inside:avoid}
+  .card,.note,.alt,.ride,.plist li,tr,.mg-facts li{break-inside:avoid}
+  .mg summary{display:none}
+  .mg{break-inside:avoid}
   .fact{padding:6px 8px}
   .line{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -229,6 +248,7 @@ textarea{min-height:100px;resize:vertical}
     <a class="day" href="#sabato">Sab 5</a>
     <a class="day" href="#domenica">Dom 6</a>
     <a class="day" href="#lunedi">Lun 7</a>
+    <a href="#miniguida">Miniguida</a>
     <a href="#trasporti">Trasporti</a>
     <a href="#hp007">Harry Potter e 007</a>
     <a href="#spettacoli">Spettacoli</a>
@@ -419,6 +439,309 @@ textarea{min-height:100px;resize:vertical}
   </ol>
 </section>
 
+<!-- MINIGUIDA -->
+<section id="miniguida">
+  <div class="sec-head"><h2>Miniguida</h2></div>
+  <p class="lead">Una scheda per ogni luogo del programma: due righe da leggere al volo e, aprendo la scheda, curiosità, storie, film e musica. In fondo a ogni scheda ci sono i link per approfondire.</p>
+  <div class="mg-search noprint">
+    <label class="field" for="mg-q"><span>Cerca nella miniguida</span>
+      <input type="text" id="mg-q" placeholder="Es. corvi, Bond, Beatles, Paddington" autocomplete="off"></label>
+    <div class="choices" id="mg-quick">
+      <button type="button" class="choice" data-q="Harry Potter">Harry Potter</button>
+      <button type="button" class="choice" data-q="007">007</button>
+      <button type="button" class="choice" data-q="Cinema">Film</button>
+      <button type="button" class="choice" data-q="Musica">Musica</button>
+      <button type="button" class="choice" data-q="Ragazzi">Per i ragazzi</button>
+    </div>
+    <p class="status" id="mg-count" role="status"></p>
+  </div>
+  <div class="mg-list" id="mg-list">
+
+    <article class="mg" id="mg-torre" data-keys="Torre di Londra">
+      <div class="mg-head"><h3>Torre di Londra</h3><span class="tag bond">Ven</span></div>
+      <p>Fortezza, palazzo reale e prigione per quasi mille anni. Oggi custodisce i Gioielli della Corona ed è sorvegliata dai Beefeaters, che ci vivono con le loro famiglie.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Storia</b>La Torre Bianca, al centro, la fece costruire Guglielmo il Conquistatore dopo il 1066. Qui fu decapitata Anna Bolena, seconda moglie di Enrico VIII, nel 1536.</li>
+          <li><b>Per i ragazzi</b>Secondo la leggenda, se i corvi lasciassero la Torre il regno crollerebbe. Per sicurezza ce ne sono sempre almeno sei, affidati a un Beefeater speciale: il <i>Ravenmaster</i>.</li>
+          <li><b>Curiosità</b>Il diamante più grande dei Gioielli, la "Stella d'Africa" (530 carati), è montato sullo Scettro del Sovrano. Ogni sera, da circa 700 anni, si svolge la Cerimonia delle Chiavi per chiudere la fortezza.</li>
+          <li><b>Storie</b>Nel 1483 due giovani principi, Edoardo V e suo fratello, sparirono nella Torre. Shakespeare ne fece un giallo nel <i>Riccardo III</i>.</li>
+          <li><b>Musica</b>Il fantasma di Anna Bolena è protagonista di una canzone comica del 1934, <i>With Her Head Tucked Underneath Her Arm</i> ("con la testa sotto il braccio").</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Torre+di+Londra" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.hrp.org.uk/tower-of-london/" target="_blank" rel="noopener">Sito ufficiale</a> · <a href="https://www.youtube.com/results?search_query=Tower+of+London+ravens+Beefeaters" target="_blank" rel="noopener">Video</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-towerbridge" data-keys="Tower Bridge">
+      <div class="mg-head"><h3>Tower Bridge</h3><span class="tag bond">Ven</span></div>
+      <p>Il ponte simbolo di Londra, aperto nel 1894. Le due metà della strada si alzano per far passare le navi, e dal camminamento in alto si guarda giù attraverso il pavimento di vetro.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Per i ragazzi</b>Nel 1952 il ponte cominciò ad aprirsi mentre ci passava sopra un autobus a due piani. L'autista accelerò e "saltò" sull'altra metà: nessun ferito grave.</li>
+          <li><b>Curiosità</b>Molti lo chiamano London Bridge, ma il London Bridge è il ponte semplice poco più a ovest. Si racconta che l'americano che nel 1968 comprò il vecchio London Bridge credesse di comprare questo; lui ha sempre negato.</li>
+          <li><b>Cinema</b>È teatro della battaglia finale di <i>Spider-Man: Far From Home</i> (2019) e del duello conclusivo di <i>Sherlock Holmes</i> (2009), ambientato sul ponte ancora in costruzione.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Tower+Bridge" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.towerbridge.org.uk/" target="_blank" rel="noopener">Sito ufficiale</a> · <a href="https://www.youtube.com/results?search_query=Tower+Bridge+lift" target="_blank" rel="noopener">Video del ponte che si apre</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-borough" data-keys="Borough Market">
+      <div class="mg-head"><h3>Borough Market</h3><span class="tag bond">Ven</span></div>
+      <p>Uno dei mercati alimentari più antichi di Londra: in quest'area si vende cibo da quasi mille anni. Ottimo per un pranzo in piedi tra banchi di tutto il mondo.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Harry Potter</b>Nel <i>Prigioniero di Azkaban</i> l'esterno del Paiolo Magico è stato girato in Stoney Street, una delle vie del mercato.</li>
+          <li><b>Cinema</b>In <i>Il diario di Bridget Jones</i> l'appartamento di Bridget è sopra il pub The Globe, all'angolo del mercato.</li>
+          <li><b>Da provare</b>Fish and chips, pie salate, formaggi inglesi e, per i golosi, i bomboloni ripieni.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Borough+Market" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://boroughmarket.org.uk/" target="_blank" rel="noopener">Sito ufficiale</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-leadenhall" data-keys="Leadenhall Market">
+      <div class="mg-head"><h3>Leadenhall Market</h3><span class="tag hp">Harry Potter</span></div>
+      <p>Mercato coperto vittoriano con tetti in ferro e vetro dipinti di rosso, crema e verde. Nel primo film di Harry Potter è stato Diagon Alley.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Storia</b>Sorge dove si trovava il foro della Londra romana, Londinium: sotto i vostri piedi ci sono 2000 anni di città.</li>
+          <li><b>Harry Potter</b>Nella <i>Pietra Filosofale</i> Hagrid accompagna Harry tra queste vie. La porta blu di un ottico in Bull's Head Passage fa da ingresso al Paiolo Magico.</li>
+          <li><b>Per i ragazzi</b>Cercate la porta blu e rifate la foto come nel film.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Leadenhall+Market" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Leadenhall+Market+Diagon+Alley" target="_blank" rel="noopener">Video</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-stpauls" data-keys="St Paul's">
+      <div class="mg-head"><h3>Cattedrale di St Paul's</h3><span class="tag bond">Ven</span></div>
+      <p>La grande cupola di Londra, ricostruita da Christopher Wren dopo il Grande incendio del 1666. La domenica è chiusa ai turisti.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Curiosità</b>Nella Galleria dei sussurri, dentro la cupola, una frase detta a bassa voce contro il muro si sente dall'altra parte, a oltre 30 metri.</li>
+          <li><b>Storia</b>Nel 1940, durante i bombardamenti, una foto della cupola intatta tra il fumo diventò il simbolo della resistenza di Londra. Qui si sposarono Carlo e Diana nel 1981.</li>
+          <li><b>Cinema e musica</b>In <i>Mary Poppins</i> (1964) la canzone <i>Feed the Birds</i> ("Due penny") racconta la vecchina che vende briciole per i piccioni sui gradini di St Paul's.</li>
+          <li><b>Curiosità</b>Sulla tomba di Wren c'è scritto in latino: "Se cerchi il suo monumento, guardati intorno".</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Cattedrale+di+San+Paolo+Londra" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.stpauls.co.uk/" target="_blank" rel="noopener">Sito ufficiale</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-millennium" data-keys="Millennium Bridge">
+      <div class="mg-head"><h3>Millennium Bridge, Globe e Tate Modern</h3><span class="tag hp">Harry Potter</span></div>
+      <p>Il ponte pedonale d'acciaio tra St Paul's e la riva sud. Dall'altra parte: il teatro di Shakespeare e il museo d'arte moderna nell'ex centrale elettrica.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Curiosità</b>Inaugurato nel 2000, fu chiuso dopo due giorni perché oscillava sotto i passi della gente. I londinesi lo chiamano ancora "Wobbly Bridge", il ponte traballante. Riaprì nel 2002.</li>
+          <li><b>Harry Potter</b>All'inizio del <i>Principe Mezzosangue</i> i Mangiamorte lo fanno crollare nel Tamigi.</li>
+          <li><b>Storia</b>Lo Shakespeare's Globe è la ricostruzione del teatro dove Shakespeare recitava, voluta dall'attore americano Sam Wanamaker e aperta nel 1997. È l'unico edificio di Londra a cui dopo il 1666 è stato permesso un tetto di paglia.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Millennium+Bridge+Londra" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.shakespearesglobe.com/" target="_blank" rel="noopener">Shakespeare's Globe</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-covent" data-keys="Covent Garden">
+      <div class="mg-head"><h3>Covent Garden e i vicoli magici</h3><span class="tag hp">Harry Potter</span></div>
+      <p>Piazza coperta con negozi, artisti di strada e, a dicembre, un enorme albero di Natale. Intorno, vicoli che sembrano Diagon Alley e la "Gringott" sullo Strand.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Storia</b>Il nome viene da "Convent Garden": qui c'era l'orto dei monaci di Westminster. Fino al 1974 è stato il mercato di frutta e fiori di Londra.</li>
+          <li><b>Cinema e musica</b><i>My Fair Lady</i> si apre proprio qui: Eliza Doolittle vende fiori sotto il portico della chiesa di St Paul's, sul lato ovest della piazza.</li>
+          <li><b>Per i ragazzi</b>Nel 1662 lo scrittore Samuel Pepys annotò qui il primo spettacolo di Punch e Judy, i burattini inglesi, di cui si abbia notizia.</li>
+          <li><b>Curiosità</b>In Cecil Court, nel 1764, abitò per qualche mese Mozart, che allora aveva 8 anni. Più tardi la via fu chiamata "Flicker Alley" perché ospitava le prime case di produzione del cinema.</li>
+          <li><b>Harry Potter</b>Gli interni di Australia House, sullo Strand, sono diventati la banca Gringott nella <i>Pietra Filosofale</i> e nei <i>Doni della Morte – Parte 2</i>.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Covent+Garden" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Goodwin%27s+Court+Cecil+Court+Harry+Potter" target="_blank" rel="noopener">Video sui vicoli</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-westend" data-keys="Spettacolo nel West End">
+      <div class="mg-head"><h3>West End e The Lion King</h3><span class="tag bond">Ven sera</span></div>
+      <p>Il quartiere dei teatri, il "Broadway di Londra". The Lion King è in scena al Lyceum dal 1999.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Musica</b>Le canzoni sono di Elton John e Tim Rice. Il canto iniziale di <i>Circle of Life</i>, in lingua zulu, è di Lebo M, che lo canta anche nel film del 1994.</li>
+          <li><b>Storie</b>Alla fine dell'Ottocento il direttore del Lyceum era Bram Stoker, che nel tempo libero scrisse <i>Dracula</i>.</li>
+          <li><b>Le altre proposte</b>Paddington arrivò dal Perù alla stazione di Paddington nel libro di Michael Bond del 1958; lì c'è la sua statua. Mamma Mia! è costruito sulle canzoni degli ABBA.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Il+re+leone+musical" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=The+Lion+King+musical+London+Circle+of+Life" target="_blank" rel="noopener">Video</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-kingscross" data-keys="Binario 9¾">
+      <div class="mg-head"><h3>King's Cross e St Pancras</h3><span class="tag hp">Harry Potter</span></div>
+      <p>Due stazioni affiancate: a King's Cross il carrello del Binario 9¾, di fronte la facciata gotica in mattoni rossi di St Pancras, da dove partono i treni per Parigi.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Harry Potter</b>Le scene del binario sono state girate tra i binari 4 e 5. La facciata di St Pancras compare nei film al posto di quella, più semplice, di King's Cross.</li>
+          <li><b>Curiosità</b>J.K. Rowling ha raccontato che, scrivendo, aveva in mente la stazione di Euston e non King's Cross.</li>
+          <li><b>Per i ragazzi</b>Una leggenda metropolitana dice che sotto un binario di King's Cross sia sepolta Boudicca, la regina guerriera che combatté contro i Romani.</li>
+          <li><b>Musica</b>Il video di <i>Wannabe</i> delle Spice Girls (1996) è stato girato sullo scalone dell'hotel di St Pancras.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Stazione+di+London+King%27s+Cross" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Platform+9+3%2F4+King%27s+Cross" target="_blank" rel="noopener">Video</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-nhm" data-keys="Natural History Museum">
+      <div class="mg-head"><h3>Natural History Museum</h3><span class="tag bond">Sab</span></div>
+      <p>La "cattedrale della natura": dinosauri, minerali, la sala dei terremoti e lo scheletro di una balenottera azzurra sospeso nella sala centrale.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Per i ragazzi</b>Guardate le decorazioni in terracotta sulla facciata: nell'ala ovest ci sono animali viventi, nell'ala est animali estinti.</li>
+          <li><b>Curiosità</b>La balenottera azzurra "Hope" è appesa dal 2017. Prima, nella sala centrale c'era Dippy, la copia dello scheletro di un diplodoco. Sullo scalone vi guarda la statua di Charles Darwin.</li>
+          <li><b>Cinema</b>Il finale di <i>Paddington</i> (2014) è ambientato proprio qui, con la cattiva imbalsamatrice interpretata da Nicole Kidman.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Natural+History+Museum+Londra" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.nhm.ac.uk/" target="_blank" rel="noopener">Sito ufficiale</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-science" data-keys="Science Museum">
+      <div class="mg-head"><h3>Science Museum</h3><span class="tag bond">Sab</span></div>
+      <p>Macchine, razzi e invenzioni che hanno cambiato il mondo. La Wonderlab interattiva, a pagamento, è perfetta per 10–12 anni.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Da non perdere</b>La capsula dell'Apollo 10, che nel 1969 girò attorno alla Luna, e Puffing Billy, la più antica locomotiva a vapore arrivata fino a noi.</li>
+          <li><b>Curiosità</b>La "macchina differenziale" di Charles Babbage, un calcolatore meccanico progettato nell'Ottocento, è stata costruita per davvero solo nel 1991. E funziona.</li>
+          <li><b>Storia</b>I musei di South Kensington sono nati con i guadagni della Grande Esposizione del 1851, la prima fiera mondiale.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Science+Museum+Londra" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.sciencemuseum.org.uk/" target="_blank" rel="noopener">Sito ufficiale</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-hydepark" data-keys="Winter Wonderland">
+      <div class="mg-head"><h3>Hyde Park e Winter Wonderland</h3><span class="tag bond">Sab</span></div>
+      <p>Il grande parco reale nel cuore di Londra. A dicembre ospita Winter Wonderland, il luna park natalizio con mercatini e pista di ghiaccio.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Storia</b>Era la riserva di caccia di Enrico VIII. Nel 1851 ospitò la Grande Esposizione nel Crystal Palace, un gigantesco palazzo di vetro.</li>
+          <li><b>Musica</b>Qui si sono tenuti concerti storici: i Rolling Stones nel 1969, i Queen nel 1976, il Live 8 nel 2005.</li>
+          <li><b>Per i ragazzi</b>Nei vicini Kensington Gardens c'è la statua di Peter Pan: J.M. Barrie la fece installare di nascosto in una notte del 1912, come se fosse apparsa per magia.</li>
+          <li><b>Curiosità</b>La domenica allo Speakers' Corner chiunque può salire su una cassetta e tenere un discorso.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Hyde+Park+Londra" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://hydeparkwinterwonderland.com/" target="_blank" rel="noopener">Winter Wonderland</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-buckingham" data-keys="Buckingham Palace">
+      <div class="mg-head"><h3>Buckingham Palace e il Cambio della Guardia</h3><span class="tag bond">Dom</span></div>
+      <p>La residenza londinese del re, con 775 stanze. Davanti al cancello, il Cambio della Guardia con la banda e i soldati con i colbacchi di pelo.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Per i ragazzi</b>Guardate la bandiera sul tetto: se c'è lo stendardo reale, il re è in casa.</li>
+          <li><b>Curiosità</b>I colbacchi delle guardie sono fatti con pelliccia di orso nero canadese. Il palazzo è residenza dei sovrani dal 1837, con la regina Vittoria.</li>
+          <li><b>Musica</b>Durante il Cambio la banda militare a volte suona colonne sonore e canzoni pop, oltre alle marce.</li>
+          <li><b>Cinema</b>Per il Giubileo del 2022 la regina Elisabetta girò un breve filmato con Paddington, prendendo un panino alla marmellata dalla borsetta.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Buckingham+Palace" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Paddington+Queen+marmalade+sandwich" target="_blank" rel="noopener">Video Paddington e la regina</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-stjames" data-keys="St James's Park e Pall Mall">
+      <div class="mg-head"><h3>St James's Park e Pall Mall</h3><span class="tag bond">007</span></div>
+      <p>Il parco più antico tra quelli reali, con il lago e la vista su Buckingham Palace. Poco più a nord, i club esclusivi di Pall Mall.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Per i ragazzi</b>Nel lago vivono pellicani dal 1664, quando l'ambasciatore russo ne regalò alcuni al re. Il primo pomeriggio è l'ora della pappa.</li>
+          <li><b>Storie</b>Al Reform Club Phileas Fogg scommette di fare il giro del mondo in 80 giorni, nel romanzo di Jules Verne.</li>
+          <li><b>007</b>Sempre al Reform Club è stato girato il duello di scherma tra Bond e il cattivo in <i>La morte può attendere</i> (2002).</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=St+James%27s+Park" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://it.wikipedia.org/wiki/Special:Search?search=Reform+Club" target="_blank" rel="noopener">Reform Club</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-trafalgar" data-keys="Trafalgar Square|National Gallery">
+      <div class="mg-head"><h3>Trafalgar Square e National Gallery</h3><span class="tag bond">007</span></div>
+      <p>La piazza con la colonna dell'ammiraglio Nelson e i quattro leoni. Sul lato nord, la National Gallery, gratuita, con capolavori da Leonardo a Van Gogh.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>A dicembre</b>Il grande albero di Natale della piazza è un regalo della Norvegia ogni anno dal 1947, per ringraziare dell'aiuto nella Seconda guerra mondiale.</li>
+          <li><b>007</b>In <i>Skyfall</i> Bond incontra il nuovo Q davanti a <i>The Fighting Temeraire</i> di Turner. Nel 2005 un sondaggio della BBC lo ha votato il quadro più bello del Regno Unito, e oggi è sulla banconota da 20 sterline.</li>
+          <li><b>Per i ragazzi</b>Cercate i <i>Girasoli</i> di Van Gogh. Fuori, il "quarto piedistallo" della piazza ospita a turno un'opera d'arte contemporanea.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Trafalgar+Square" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.nationalgallery.org.uk/" target="_blank" rel="noopener">National Gallery</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-whitehall" data-keys="Whitehall">
+      <div class="mg-head"><h3>Whitehall</h3><span class="tag hp">Harry Potter</span><span class="tag bond">007</span></div>
+      <p>La strada dei ministeri, tra Trafalgar Square e il Parlamento: Horse Guards con le sentinelle a cavallo, Downing Street e l'ex Ministero della Guerra.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>007</b>Durante la Seconda guerra mondiale Ian Fleming, il creatore di Bond, lavorava qui vicino, nei servizi segreti della Marina. Nell'Old War Office lavorò anche Churchill; oggi è un hotel di lusso.</li>
+          <li><b>Harry Potter</b>Nei <i>Doni della Morte</i> si entra al Ministero della Magia da una cabina telefonica in Scotland Place, componendo 62442: sulla tastiera si legge "MAGIC".</li>
+          <li><b>Curiosità</b>"Scotland Yard", il nome della polizia di Londra, viene dalla via Great Scotland Yard, dove nel 1829 aveva la sua prima sede.</li>
+          <li><b>Per i ragazzi</b>Le sentinelle a cavallo di Horse Guards cambiano ogni ora. Non disturbatele: i cavalli possono mordere.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Whitehall" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Ministry+of+Magic+phone+box+scene" target="_blank" rel="noopener">Video della cabina</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-westminster" data-keys="Westminster">
+      <div class="mg-head"><h3>Westminster e Big Ben</h3><span class="tag hp">Harry Potter</span><span class="tag bond">007</span></div>
+      <p>Il Parlamento, la torre dell'orologio e l'abbazia dove vengono incoronati i sovrani. L'abbazia la domenica si vede solo da fuori.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Per i ragazzi</b>Big Ben non è la torre ma la campana dentro, pesante quasi 14 tonnellate. Dal 2012 la torre si chiama Elizabeth Tower.</li>
+          <li><b>Storia</b>Nell'abbazia di Westminster si incoronano i sovrani dal 1066; l'ultimo è stato Carlo III nel 2023.</li>
+          <li><b>Cinema</b>In <i>Le avventure di Peter Pan</i> (Disney, 1953) Peter e i bambini volano attorno al Big Ben. Sul Westminster Bridge si chiude <i>Spectre</i>, con l'elicottero che si schianta. Nella stazione della metro passano Harry e il signor Weasley nell'<i>Ordine della Fenice</i>.</li>
+          <li><b>Poesia</b>Nel 1802 William Wordsworth scrisse sul Westminster Bridge un sonetto famoso: "La terra non ha nulla di più bello da mostrare".</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Palazzo+di+Westminster" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.westminster-abbey.org/" target="_blank" rel="noopener">Abbazia di Westminster</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-mi6" data-keys="Lambeth Bridge">
+      <div class="mg-head"><h3>Lambeth Bridge e l'MI6</h3><span class="tag hp">Harry Potter</span><span class="tag bond">007</span></div>
+      <p>Il ponte rosso a sud di Westminster e, poco più in là sulla riva opposta, il palazzo dei servizi segreti britannici.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Curiosità</b>Lambeth Bridge è rosso come le panche della Camera dei Lord, Westminster Bridge è verde come quelle della Camera dei Comuni.</li>
+          <li><b>Harry Potter</b>Nel <i>Prigioniero di Azkaban</i> il Nottetempo, l'autobus viola a tre piani, si schiaccia per passare tra due autobus proprio su questo ponte.</li>
+          <li><b>007</b>Il palazzo dell'MI6, inaugurato nel 1994, appare per la prima volta in <i>GoldenEye</i> (1995). Viene colpito in <i>Il mondo non basta</i>, che parte da qui con un inseguimento in motoscafo sul Tamigi, e fatto saltare in <i>Skyfall</i>.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=SIS+Building" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Knight+Bus+Lambeth+Bridge+scene" target="_blank" rel="noopener">Video del Nottetempo</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-eye" data-keys="London Eye|Southbank">
+      <div class="mg-head"><h3>London Eye e South Bank</h3><span class="tag bond">Dom</span></div>
+      <p>La ruota panoramica alta 135 metri, aperta nel 2000. Un giro dura circa 30 minuti e nelle giornate limpide si vede lontanissimo.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Per i ragazzi</b>Le capsule sono 32 ma la numerazione arriva a 33: manca la numero 13, per scaramanzia.</li>
+          <li><b>Cinema</b>Nel primo episodio della nuova serie di <i>Doctor Who</i> (2005) si scopre che il London Eye è un'antenna aliena.</li>
+          <li><b>Da cercare dall'alto</b>Il Parlamento, St Paul's, il palazzo dell'MI6 e, verso est, i grattacieli della City.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=London+Eye" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.londoneye.com/" target="_blank" rel="noopener">Sito ufficiale</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-kew" data-keys="Christmas at Kew">
+      <div class="mg-head"><h3>Kew Gardens e Christmas at Kew</h3><span class="tag bond">Dom sera</span></div>
+      <p>Il giardino botanico più famoso del mondo, patrimonio UNESCO. A dicembre, di sera, un percorso di luci tra serre vittoriane e alberi illuminati.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Curiosità</b>Kew custodisce una delle collezioni di piante vive più grandi del mondo. La Temperate House è la più grande serra vittoriana ancora esistente.</li>
+          <li><b>Per i ragazzi</b>La Grande Pagoda del 1762 ha 80 draghi colorati sui tetti, rifatti nel 2018.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Kew+Gardens" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.kew.org/" target="_blank" rel="noopener">Sito ufficiale</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-studio" data-keys="Harry Potter Studio Tour">
+      <div class="mg-head"><h3>Harry Potter Studio Tour (variante)</h3><span class="tag hp">Harry Potter</span><span class="tag bond">007</span></div>
+      <p>Gli studi di Leavesden, dove sono stati girati tutti gli otto film: Sala Grande, Diagon Alley, il plastico di Hogwarts. A dicembre è tutto innevato.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>007</b>Prima di Harry Potter, in questi capannoni (un'ex fabbrica di motori d'aereo) è stato girato <i>GoldenEye</i> (1995), con Pierce Brosnan.</li>
+          <li><b>Per i ragazzi</b>Il plastico di Hogwarts è in scala 1:24 ed è stato usato per le riprese dall'alto del castello. Al bar si assaggia la Burrobirra.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://www.wbstudiotour.co.uk/" target="_blank" rel="noopener">Sito ufficiale</a> · <a href="https://www.youtube.com/results?search_query=Hogwarts+in+the+Snow+studio+tour" target="_blank" rel="noopener">Video Hogwarts in the Snow</a></p>
+      </details>
+    </article>
+
+  </div>
+  <p class="status" id="mg-none" hidden>Nessuna scheda trovata. Provate con un'altra parola.</p>
+</section>
+
 <!-- TRASPORTI -->
 <section id="trasporti">
   <div class="sec-head"><h2>Trasporti</h2></div>
@@ -534,6 +857,41 @@ document.querySelectorAll('.check input').forEach(function(box){
     try{ localStorage.setItem(key, box.checked?'1':'0'); }catch(e){}
   });
 });
+</script>
+<script>
+(function miniguida(){
+  var cards=[].slice.call(document.querySelectorAll('.mg'));
+  // Link "Curiosità e storie" sotto le tappe del programma
+  document.querySelectorAll('.stop .what, .alt').forEach(function(w){
+    var h=w.querySelector('h3');if(!h)return;var t=h.textContent;
+    cards.forEach(function(c){
+      if(!c.dataset.keys.split('|').some(function(k){return t.indexOf(k)>=0}))return;
+      var a=document.createElement('a');a.className='mg-link noprint';a.href='#'+c.id;
+      a.textContent='Curiosità e storie: '+c.querySelector('h3').textContent+' ↓';
+      a.addEventListener('click',function(){var d=c.querySelector('details');if(d)d.open=true});
+      w.appendChild(a);
+    });
+  });
+  // Ricerca
+  var q=document.getElementById('mg-q'),count=document.getElementById('mg-count'),none=document.getElementById('mg-none');
+  var norm=function(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')};
+  var texts=cards.map(function(c){return norm(c.textContent)});
+  function run(){
+    var v=norm(q.value.trim()),n=0;
+    cards.forEach(function(c,i){
+      var hit=!v||texts[i].indexOf(v)>=0;c.hidden=!hit;if(hit)n++;
+      var d=c.querySelector('details');
+      if(d){if(v&&hit){if(!d.open){d.open=true;d.dataset.auto='1'}}else if(d.dataset.auto){d.open=false;d.dataset.auto=''}}
+    });
+    none.hidden=n>0;count.textContent=v?(n===1?'1 scheda trovata':n+' schede trovate'):'';
+    document.querySelectorAll('#mg-quick [data-q]').forEach(function(b){b.setAttribute('aria-pressed',String(norm(b.dataset.q)===v))});
+  }
+  q.addEventListener('input',run);
+  document.getElementById('mg-quick').addEventListener('click',function(e){
+    var b=e.target.closest('[data-q]');if(!b)return;q.value=b.getAttribute('aria-pressed')==='true'?'':b.dataset.q;run();
+  });
+  window.addEventListener('beforeprint',function(){document.querySelectorAll('.mg details').forEach(function(d){d.open=true})});
+})();
 </script>
 
 
