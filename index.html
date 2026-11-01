@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Londra in famiglia</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: una colonna da guida tascabile, barra dei giorni fissa in alto, tappe a timeline con orari a sinistra */
+:root{
+  --bg:#f3f5f8;
+  --surface:#ffffff;
+  --ink:#16202e;
+  --muted:#5a6578;
+  --line:#d9dee7;
+  --red:#c42b2b;        /* rosso cassetta postale: accento */
+  --district:#00782a;   /* linea verde */
+  --piccadilly:#1c3f94; /* linea blu scuro */
+  --hp:#7a4b16;
+  --bond:#3b3f46;
+  --hp-bg:#f6ecdf;
+  --bond-bg:#e8eaee;
+  --note-bg:#fff4e0;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Helvetica Neue", Arial, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f141c;--surface:#171e29;--ink:#e8ecf2;--muted:#9aa5b6;--line:#2a3443;
+  --red:#ff6b61;--district:#3fbf6b;--piccadilly:#7f9cf0;--hp:#e0b077;--bond:#c3c8d1;
+  --hp-bg:#2a2117;--bond-bg:#222833;--note-bg:#2b2416;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f141c;--surface:#171e29;--ink:#e8ecf2;--muted:#9aa5b6;--line:#2a3443;
+  --red:#ff6b61;--district:#3fbf6b;--piccadilly:#7f9cf0;--hp:#e0b077;--bond:#c3c8d1;
+  --hp-bg:#2a2117;--bond-bg:#222833;--note-bg:#2b2416;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h2{font-size:1.6rem;font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.05rem;font-weight:600}
+p{margin:0}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:4px}
+
+/* Testata */
+header.top{padding-block:28px 20px}
+.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+h1{font-size:clamp(2.2rem,9vw,3.4rem);font-weight:800;line-height:1;letter-spacing:-.02em;margin-top:6px}
+.sub{color:var(--muted);margin-top:10px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:18px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.fact b{display:block;font-family:var(--display);font-size:1.15rem;font-variant-numeric:tabular-nums}
+.fact span{font-size:.8rem;color:var(--muted)}
+
+/* Barra di navigazione */
+nav.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+nav.bar .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav.bar .wrap::-webkit-scrollbar{display:none}
+nav.bar a{flex:none;text-decoration:none;font-size:.85rem;font-weight:700;padding:7px 12px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+nav.bar a.day{border-color:var(--ink)}
+nav.bar a:hover{background:var(--bg)}
+
+section{padding-block:28px 8px;scroll-margin-top:60px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.date{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lead{color:var(--muted);margin-bottom:14px;max-width:62ch}
+
+/* Timeline delle tappe */
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.stop{display:grid;grid-template-columns:58px 1fr;gap:12px;padding-block:12px;border-top:1px solid var(--line)}
+.stop:first-child{border-top:0}
+.time{font-weight:700;font-variant-numeric:tabular-nums;font-size:.95rem;padding-top:1px}
+.what{min-width:0;display:grid;gap:4px}
+.what p{color:var(--muted);font-size:.95rem}
+.what p b{color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.tag{font-size:.72rem;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:4px;white-space:nowrap}
+.tag.hp{background:var(--hp-bg);color:var(--hp)}
+.tag.bond{background:var(--bond-bg);color:var(--bond)}
+.tag.book{background:transparent;color:var(--red);border:1px solid var(--red)}
+.tag.free{background:transparent;color:var(--district);border:1px solid var(--district)}
+.map{font-size:.85rem;font-weight:700;color:var(--piccadilly);text-decoration:none;justify-self:start}
+.map:hover{text-decoration:underline}
+
+/* Percorsi in metro */
+.ride{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.9rem;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-top:4px}
+.line{font-weight:700;font-size:.75rem;color:#fff;padding:4px 9px;border-radius:3px}
+.line.d{background:var(--district)}
+.line.p{background:var(--piccadilly)}
+.line.t{background:var(--ink);color:var(--surface)}
+:root[data-theme="dark"] .line.d, :root[data-theme="dark"] .line.p{color:#0f141c}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .line.d, :root:not([data-theme="light"]) .line.p{color:#0f141c}}
+
+.note{background:var(--note-bg);border-radius:10px;padding:12px 14px;font-size:.93rem;margin-top:14px}
+.note b{font-family:var(--display)}
+.alt{border:1.5px dashed var(--hp);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:.93rem;display:grid;gap:4px}
+.alt h3{color:var(--hp)}
+
+/* Tabelle */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:6px;align-content:start;min-width:0}
+.card p{font-size:.93rem;color:var(--muted)}
+.card.top{border:2px solid var(--red)}
+.pick{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+
+/* Lista prenotazioni */
+.check{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.check li{border-bottom:1px solid var(--line)}
+.check li:last-child{border-bottom:0}
+.check label{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:12px 14px;cursor:pointer;align-items:start}
+.check input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--district)}
+.check small{display:block;color:var(--muted)}
+.check input:checked + span{text-decoration:line-through;color:var(--muted)}
+
+.places{display:grid;gap:18px}
+.places h3{margin-bottom:6px}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.plist li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.plist p{font-size:.9rem;color:var(--muted)}
+
+ul.dots{margin:0;padding-left:1.1em;display:grid;gap:6px}
+footer{padding-block:32px 40px;color:var(--muted);font-size:.85rem}
+
+/* Diario e memoria */
+nav.bar a.jr{border-color:var(--red);color:var(--red)}
+.add-note{font:inherit;font-size:.82rem;font-weight:700;color:var(--red);background:none;border:0;padding:4px 0;cursor:pointer;justify-self:start}
+.add-note:hover{text-decoration:underline}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:16px}
+.field{display:grid;gap:6px;min-width:0}
+.field > span,.legend{font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+select,input[type=text],textarea{font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%}
+textarea{min-height:100px;resize:vertical}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choice{font:inherit;font-size:.9rem;font-weight:700;padding:8px 13px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.choice[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--surface)}
+.choice.like[aria-pressed="true"]{background:var(--district);border-color:var(--district)}
+.choice.dislike[aria-pressed="true"]{background:var(--red);border-color:var(--red)}
+.choice.top[aria-pressed="true"]{background:var(--hp);border-color:var(--hp)}
+.btn{font:inherit;font-weight:700;font-size:.95rem;padding:11px 18px;border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);color:var(--surface);cursor:pointer;justify-self:start;display:inline-block}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:default}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.status{font-size:.88rem;color:var(--muted)}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px}
+.thumbs:empty{display:none}
+.thumb{position:relative}
+.thumb img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
+.thumb button{position:absolute;top:4px;right:4px;font:inherit;font-size:.75rem;font-weight:700;border:0;border-radius:999px;padding:5px 10px;background:var(--surface);color:var(--ink);cursor:pointer}
+.entries{display:grid;gap:22px;margin-top:20px}
+.jday{display:grid;gap:10px}
+.jday > h3{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.entry{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:8px;min-width:0}
+.entry-head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.entry-head b{font-family:var(--display);font-size:1.05rem}
+.rate{font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:999px;color:var(--surface);white-space:nowrap}
+.rate.like{background:var(--district)}
+.rate.dislike{background:var(--red)}
+.rate.top{background:var(--hp)}
+.entry .txt{white-space:pre-wrap;overflow-wrap:anywhere}
+.entry .meta{font-size:.82rem;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.entry .meta button{font:inherit;font-size:.82rem;font-weight:700;background:none;border:0;color:var(--red);cursor:pointer;padding:2px 0}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:6px}
+.photos img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
+.memoir{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding-block:24px;padding-inline:clamp(16px,4vw,32px);display:grid;gap:14px}
+.memoir h3{font-size:clamp(1.5rem,6vw,2.1rem);font-weight:800;line-height:1.1}
+.memoir h4{font-family:var(--display);font-size:1.15rem;margin:10px 0 0}
+.memoir p{max-width:62ch}
+.memoir .subt{color:var(--muted);font-style:italic}
+.memo-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.memo-photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block}
+
+/* Stampa: A4, tutto visibile, niente barra */
+@media print{
+  @page{size:A4;margin:12mm 12mm 14mm}
+  :root{--bg:#fff;--surface:#fff;--ink:#111;--muted:#444;--line:#ccc;--note-bg:#f4f4f4;--hp-bg:#f1e6d6;--bond-bg:#e6e8ec;color-scheme:light}
+  body{font-size:10.5pt;line-height:1.35;background:#fff}
+  body::before,nav.bar,.map,.noprint{display:none!important}
+  .wrap{max-width:none;padding:0}
+  header.top{padding-block:0 8px}
+  h1{font-size:26pt}
+  h2{font-size:15pt}
+  section{padding-block:10px 0;break-inside:auto}
+  #giovedi,#venerdi,#sabato,#domenica,#trasporti,#hp007,#prenotazioni{break-before:page}
+  #giovedi{break-before:auto}
+  .stop{padding-block:5px;break-inside:avoid;grid-template-columns:44px 1fr}
+  .card,.note,.alt,.ride,.plist li,tr{break-inside:avoid}
+  .fact{padding:6px 8px}
+  .line{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .check input{accent-color:#111}
+  .tbl{overflow:visible}
+  a{text-decoration:none}
+}
+@media (prefers-reduced-motion: no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<header class="top wrap">
+  <h1>Londra in famiglia</h1>
+  <p class="sub">2 adulti e 3 ragazzi · Da giovedì 3 a lunedì 7 dicembre 2026 · Alloggio a Londra ovest (zona 3) · Volo: Heathrow</p>
+  <div class="facts">
+    <div class="fact"><b>15:50</b><span>tramonto: all'aperto la mattina</span></div>
+    <div class="fact"><b>3–9 °C</b><span>freddo e pioggia probabile</span></div>
+    <div class="fact"><b>~£10,50</b><span>tetto metro al giorno per adulto (zone 1–3)</span></div>
+    <div class="fact"><b>Gratis</b><span>metro e bus sotto gli 11 anni</span></div>
+  </div>
+</header>
+
+<nav class="bar" aria-label="Sezioni della guida">
+  <div class="wrap">
+    <a class="day" href="#giovedi">Gio 3</a>
+    <a class="day" href="#venerdi">Ven 4</a>
+    <a class="day" href="#sabato">Sab 5</a>
+    <a class="day" href="#domenica">Dom 6</a>
+    <a class="day" href="#lunedi">Lun 7</a>
+    <a href="#trasporti">Trasporti</a>
+    <a href="#hp007">Harry Potter e 007</a>
+    <a href="#spettacoli">Spettacoli</a>
+    <a href="#prenotazioni">Da prenotare</a>
+    <a href="#info">Info utili</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- GIOVEDÌ -->
+<section id="giovedi">
+  <div class="sec-head"><h2>Arrivo</h2><span class="date">Giovedì 3 dicembre</span></div>
+  <ol class="tl">
+    <li class="stop"><div class="time">21:00</div><div class="what">
+      <h3>Atterraggio a Heathrow</h3>
+      <p>Controllate il terminal sulla prenotazione.</p></div></li>
+    <li class="stop"><div class="time">~22:00</div><div class="what">
+      <h3>Taxi o Uber XL fino all'appartamento</h3>
+      <p>Circa 20–25 minuti, <b>£40–55 in tutto</b>. Serve un'auto grande (Uber XL o monovolume) per 5 persone e valigie.</p>
+      <div class="tags"><span class="tag book">Prenotare</span></div>
+      <p><b>Alternativa economica:</b> Piccadilly line diretta fino ad Acton Town (circa 30 minuti), poi 10–15 minuti a piedi. Circa £10 in tutto.</p>
+      <div class="ride"><span class="line p">Piccadilly</span> Heathrow → Acton Town · ~30 min</div></div></li>
+    <li class="stop"><div class="time">notte</div><div class="what">
+      <h3>Check-in e subito a dormire</h3>
+      <p>Domani si parte presto.</p></div></li>
+  </ol>
+</section>
+
+<!-- VENERDÌ -->
+<section id="venerdi">
+  <div class="sec-head"><h2>La City e lo spettacolo</h2><span class="date">Venerdì 4 dicembre</span></div>
+  <ol class="tl">
+    <li class="stop"><div class="time">8:15</div><div class="what">
+      <h3>In metro verso la Torre</h3>
+      <p>Prima comprate una Oyster alla macchinetta per i ragazzi dagli 11 anni in su.</p>
+      <div class="ride"><span class="line d">District</span> Acton Town / Ealing Common → Tower Hill · ~45 min, diretta</div></div></li>
+    <li class="stop"><div class="time">8:45</div><div class="what">
+      <h3>Sosta a Victoria: sconto ragazzi</h3>
+      <p>Scendete un attimo a <b>Victoria</b> (sulla stessa linea) e fate attivare lo sconto <b>Young Visitor</b> al Visitor Centre: metà tariffa per i ragazzi dagli 11 ai 15 anni. Poi proseguite.</p></div></li>
+    <li class="stop"><div class="time">9:30</div><div class="what">
+      <h3>Torre di Londra</h3>
+      <p>Gioielli della Corona, Beefeaters, corvi. Circa 2 ore e mezza.</p>
+      <div class="tags"><span class="tag book">Biglietti online</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Tower+of+London" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">12:00</div><div class="what">
+      <h3>Tower Bridge</h3>
+      <p>Camminamento in alto con il pavimento di vetro.</p>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Tower+Bridge" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">13:00</div><div class="what">
+      <h3>Pranzo al Borough Market</h3>
+      <p>Circa 15 minuti a piedi lungo la riva sud del Tamigi.</p>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Borough+Market+London" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">14:15</div><div class="what">
+      <h3>Leadenhall Market</h3>
+      <p>Attraversate il London Bridge. Il mercato vittoriano è stato Diagon Alley nella <i>Pietra Filosofale</i>. In <b>Bull's Head Passage</b> c'è la porta blu usata come ingresso del Paiolo Magico.</p>
+      <div class="tags"><span class="tag hp">Harry Potter</span><span class="tag free">Gratis</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Bull's+Head+Passage+Leadenhall+Market" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">15:00</div><div class="what">
+      <h3>St Paul's e Millennium Bridge</h3>
+      <p>La cattedrale (domenica è chiusa ai turisti, quindi oggi). Il ponte è quello distrutto dai Mangiamorte nel <i>Principe Mezzosangue</i>. Al tramonto è bellissimo.</p>
+      <div class="tags"><span class="tag hp">Harry Potter</span><span class="tag free">Gratis</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Millennium+Bridge+London" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">16:00</div><div class="what">
+      <h3>Covent Garden e i vicoli magici</h3>
+      <p><b>Cecil Court</b> e <b>Goodwin's Court</b>, vicoli con lampioni a gas che ricordano Diagon Alley. Sullo Strand, <b>Australia House</b>: i suoi interni sono la Gringott nel film. Poi l'albero e le luci di Covent Garden.</p>
+      <div class="tags"><span class="tag hp">Harry Potter</span><span class="tag free">Gratis</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Goodwin's+Court+London" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">17:30</div><div class="what">
+      <h3>Cena presto in zona</h3></div></li>
+    <li class="stop"><div class="time">19:30</div><div class="what">
+      <h3>Spettacolo nel West End</h3>
+      <p>Prima scelta: <b>The Lion King</b> al Lyceum, a due passi da Covent Garden. Altre opzioni nella sezione Spettacoli.</p>
+      <div class="tags"><span class="tag book">Prenotare subito</span></div></div></li>
+    <li class="stop"><div class="time">~22:30</div><div class="what">
+      <h3>Rientro</h3>
+      <p>Il venerdì la Piccadilly line funziona tutta la notte. In alternativa, taxi nero: porta 5 persone.</p>
+      <div class="ride"><span class="line p">Piccadilly</span> Leicester Square → Acton Town · ~30 min, diretta</div></div></li>
+  </ol>
+</section>
+
+<!-- SABATO -->
+<section id="sabato">
+  <div class="sec-head"><h2>King's Cross, musei e Winter Wonderland</h2><span class="date">Sabato 5 dicembre</span></div>
+  <ol class="tl">
+    <li class="stop"><div class="time">7:45</div><div class="what">
+      <h3>Partenza presto</h3>
+      <div class="ride"><span class="line p">Piccadilly</span> Acton Town → King's Cross St Pancras · ~40 min, diretta</div></div></li>
+    <li class="stop"><div class="time">8:30</div><div class="what">
+      <h3>Binario 9¾ e St Pancras</h3>
+      <p>Il carrello nel muro: la foto con il vostro telefono è gratuita. Arrivate prima delle 9, poi la coda è lunghissima. Di fronte, la facciata rossa di <b>St Pancras</b>, dove passa la Ford Anglia volante.</p>
+      <div class="tags"><span class="tag hp">Harry Potter</span><span class="tag free">Gratis</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Platform+9+3/4+King's+Cross" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">9:30</div><div class="what">
+      <h3>Verso i musei</h3>
+      <div class="ride"><span class="line p">Piccadilly</span> King's Cross → South Kensington · ~20 min, diretta</div></div></li>
+    <li class="stop"><div class="time">10:00</div><div class="what">
+      <h3>Natural History Museum</h3>
+      <p>Dinosauri, sala dei terremoti, la grande sala centrale.</p>
+      <div class="tags"><span class="tag free">Gratis</span><span class="tag book">Prenotare fascia oraria</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Natural+History+Museum+London" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">12:30</div><div class="what">
+      <h3>Pranzo</h3></div></li>
+    <li class="stop"><div class="time">13:30</div><div class="what">
+      <h3>Science Museum</h3>
+      <p>Accanto al precedente. La <b>Wonderlab</b> interattiva (a pagamento) è perfetta per 10–12 anni.</p>
+      <div class="tags"><span class="tag free">Gratis, Wonderlab a pagamento</span></div></div></li>
+    <li class="stop"><div class="time">16:00</div><div class="what">
+      <h3>Hyde Park Winter Wonderland</h3>
+      <p>Circa 15 minuti a piedi. Luci, giostre, mercatini, pista di ghiaccio. Ingresso gratuito ma il sabato va prenotato; le attrazioni si pagano.</p>
+      <div class="tags"><span class="tag book">Prenotare ingresso</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Hyde+Park+Winter+Wonderland" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">~19:30</div><div class="what">
+      <h3>Rientro</h3>
+      <div class="ride"><span class="line p">Piccadilly</span> Hyde Park Corner → Acton Town · ~25 min, diretta</div></div></li>
+  </ol>
+  <div class="alt">
+    <h3>Variante: Harry Potter Studio Tour</h3>
+    <p>Al posto dei musei, con l'allestimento <b>"Hogwarts in the Snow"</b>. Fascia oraria verso le 9:30, rientro verso le 15, poi Winter Wonderland la sera. Dalla vostra zona ci vuole oltre un'ora a tratta (Euston → Watford Junction + navetta): valutate un pacchetto con pullman dal centro. Biglietti da comprare subito.</p>
+  </div>
+</section>
+
+<!-- DOMENICA -->
+<section id="domenica">
+  <div class="sec-head"><h2>Guardie, 007 e London Eye</h2><span class="date">Domenica 6 dicembre</span></div>
+  <p class="lead">Giornata a piedi, circa 3 km da Buckingham al London Eye. Westminster Abbey e St Paul's la domenica sono chiuse ai turisti: si vedono da fuori.</p>
+  <ol class="tl">
+    <li class="stop"><div class="time">9:30</div><div class="what">
+      <div class="ride"><span class="line d">District</span> Acton Town / Ealing Common → St James's Park · ~30 min, diretta</div></div></li>
+    <li class="stop"><div class="time">10:15</div><div class="what">
+      <h3>Cambio della Guardia a Buckingham Palace</h3>
+      <p>Inizia alle 11:00. Arrivate presto per un buon posto. In inverno non si tiene tutti i giorni: verificate il calendario.</p>
+      <div class="tags"><span class="tag free">Gratis</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Buckingham+Palace" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">12:00</div><div class="what">
+      <h3>St James's Park e Pall Mall</h3>
+      <p>Il <b>Reform Club</b>, dove è stato girato il duello di scherma in <i>La morte può attendere</i>. Solo da fuori.</p>
+      <div class="tags"><span class="tag bond">007</span><span class="tag free">Gratis</span></div></div></li>
+    <li class="stop"><div class="time">12:30</div><div class="what">
+      <h3>Trafalgar Square e pranzo</h3></div></li>
+    <li class="stop"><div class="time">13:15</div><div class="what">
+      <h3>National Gallery: il Turner di Skyfall</h3>
+      <p>Bond incontra Q davanti a <b>"The Fighting Temeraire"</b> di Turner. Chiedete al personale in che sala è esposto.</p>
+      <div class="tags"><span class="tag bond">007</span><span class="tag free">Gratis</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=National+Gallery+London" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">14:00</div><div class="what">
+      <h3>Whitehall</h3>
+      <p><b>The Old War Office</b>, l'ex Ministero della Guerra visto in vari film di Bond. In <b>Scotland Place</b>, una traversa, c'era la cabina rossa d'ingresso al <b>Ministero della Magia</b> nei <i>Doni della Morte</i>. Poi Horse Guards.</p>
+      <div class="tags"><span class="tag bond">007</span><span class="tag hp">Harry Potter</span><span class="tag free">Gratis</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Scotland+Place+London" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">14:30</div><div class="what">
+      <h3>Westminster</h3>
+      <p>Big Ben e Parlamento. La <b>stazione della metro di Westminster</b> compare nell'<i>Ordine della Fenice</i>. Il <b>Westminster Bridge</b> è il finale di <i>Spectre</i>.</p>
+      <div class="tags"><span class="tag hp">Harry Potter</span><span class="tag bond">007</span><span class="tag free">Gratis</span></div></div></li>
+    <li class="stop"><div class="time">14:50</div><div class="what">
+      <h3>Lambeth Bridge e vista sull'MI6</h3>
+      <p>Il <b>Nottetempo</b> passa tra due autobus nel <i>Prigioniero di Azkaban</i>. Guardando verso sud si vede il <b>quartier generale dell'MI6</b>, fatto saltare in <i>Il mondo non basta</i> e <i>Skyfall</i>. Per vederlo da vicino: 15 minuti a piedi lungo il Millbank.</p>
+      <div class="tags"><span class="tag hp">Harry Potter</span><span class="tag bond">007</span><span class="tag free">Gratis</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Lambeth+Bridge+London" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">15:30</div><div class="what">
+      <h3>London Eye al tramonto</h3>
+      <p>Dall'alto rivedete l'MI6 e il Westminster Bridge.</p>
+      <div class="tags"><span class="tag book">Prenotare fascia oraria</span></div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=London+Eye" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">16:15</div><div class="what">
+      <h3>Southbank Winter Market</h3>
+      <p>Mercatino lungo il fiume, merenda calda.</p></div></li>
+    <li class="stop"><div class="time">17:30</div><div class="what">
+      <h3>Christmas at Kew</h3>
+      <p>Percorso serale di luci nei Kew Gardens, circa 1 ora e mezza. È vicino a casa: il rientro dura pochi minuti.</p>
+      <div class="tags"><span class="tag book">Prenotare fascia oraria</span></div>
+      <div class="ride"><span class="line d">District</span> Westminster → Kew Gardens · ~35 min (treni per Richmond)</div>
+      <a class="map" href="https://www.google.com/maps/search/?api=1&query=Kew+Gardens+Victoria+Gate" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
+    <li class="stop"><div class="time">20:00</div><div class="what">
+      <h3>A casa: cena, valigie, a letto</h3>
+      <div class="ride"><span class="line d">District</span> Kew Gardens → Gunnersbury · 1 fermata, poi taxi breve o a piedi</div></div></li>
+  </ol>
+</section>
+
+<!-- LUNEDÌ -->
+<section id="lunedi">
+  <div class="sec-head"><h2>Partenza</h2><span class="date">Lunedì 7 dicembre</span></div>
+  <ol class="tl">
+    <li class="stop"><div class="time">4:30</div><div class="what">
+      <h3>Taxi prenotato verso Heathrow</h3>
+      <p>Circa 20 minuti, circa <b>£40–50</b>. Esempio per un volo alle 7:00: essere al terminal verso le 4:50. La metro nella notte tra domenica e lunedì non circola.</p>
+      <div class="tags"><span class="tag book">Prenotare da casa</span></div></div></li>
+  </ol>
+</section>
+
+<!-- TRASPORTI -->
+<section id="trasporti">
+  <div class="sec-head"><h2>Trasporti</h2></div>
+  <p class="lead">Le stazioni più vicine dovrebbero essere <b>Acton Town</b> o <b>Ealing Common</b>, 10–15 minuti a piedi: controllate su Citymapper quale vi conviene. Da lì passano due linee dirette per tutto il programma.</p>
+  <div class="cards">
+    <div class="card"><h3><span class="line d">District</span></h3><p>Victoria, St James's Park, Westminster, Tower Hill, South Kensington, Kew Gardens.</p></div>
+    <div class="card"><h3><span class="line p">Piccadilly</span></h3><p>Heathrow, South Kensington, Hyde Park Corner, Piccadilly Circus, Leicester Square, Covent Garden, King's Cross.</p></div>
+  </div>
+  <h3 style="margin-top:22px;margin-bottom:8px">Chi paga e come</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Chi</th><th>Come</th><th>Costo</th></tr></thead>
+    <tbody>
+      <tr><td>Adulti</td><td>Carta contactless o telefono, <b>uno a testa</b>. Il sistema smette di addebitare al raggiungimento del tetto.</td><td class="num">max ~£10,50/giorno</td></tr>
+      <tr><td>Sotto gli 11 anni</td><td>Nessun biglietto. Passano dal tornello largo con un adulto (fino a 4 per adulto).</td><td class="num">gratis</td></tr>
+      <tr><td>Dagli 11 ai 15 anni</td><td>Oyster (circa £7) con sconto <b>Young Visitor</b>, attivato al Visitor Centre di Victoria venerdì mattina.</td><td class="num">metà tariffa</td></tr>
+    </tbody>
+  </table></div>
+  <h3 style="margin-top:22px;margin-bottom:8px">Aeroporto</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Quando</th><th>Come</th><th>Costo</th></tr></thead>
+    <tbody>
+      <tr><td>Gio 3, ~22:00</td><td>Taxi o Uber XL Heathrow → casa, ~20–25 min</td><td class="num">£40–55 in tutto</td></tr>
+      <tr><td>Lun 7, 4:30</td><td>Taxi prenotato casa → Heathrow, ~20 min</td><td class="num">£40–50 in tutto</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><b>Consigli.</b> Scaricate <b>Citymapper</b> o <b>TfL Go</b>. Evitate la metro tra 7:30–9:30 e 17–19. Usate una carta senza commissioni sulle sterline. I taxi neri portano 5 persone. Sui bus a due piani sedetevi al piano di sopra, davanti.</div>
+</section>
+
+<!-- HP E 007 -->
+<section id="hp007">
+  <div class="sec-head"><h2>Harry Potter e 007</h2></div>
+  <p class="lead">Tutte le tappe sono già nel programma e sono gratuite. Idea per i ragazzi: guardate prima le scene e rifate la foto nella stessa posa.</p>
+  <div class="places">
+    <div>
+      <h3>Harry Potter</h3>
+      <ul class="plist">
+        <li><span class="tag hp">Ven</span><div><b>Leadenhall Market</b><p>Diagon Alley e la porta del Paiolo Magico, in Bull's Head Passage.</p></div></li>
+        <li><span class="tag hp">Ven</span><div><b>Millennium Bridge</b><p>Distrutto dai Mangiamorte nel <i>Principe Mezzosangue</i>.</p></div></li>
+        <li><span class="tag hp">Ven</span><div><b>Cecil Court e Goodwin's Court</b><p>Vicoli che ricordano Diagon Alley.</p></div></li>
+        <li><span class="tag hp">Ven</span><div><b>Australia House, Strand</b><p>Gli interni della Gringott. Solo da fuori.</p></div></li>
+        <li><span class="tag hp">Sab</span><div><b>Binario 9¾, King's Cross</b><p>La foto con il carrello. Prima delle 9.</p></div></li>
+        <li><span class="tag hp">Sab</span><div><b>St Pancras</b><p>La Ford Anglia volante nella <i>Camera dei Segreti</i>.</p></div></li>
+        <li><span class="tag hp">Dom</span><div><b>Scotland Place, Whitehall</b><p>L'ingresso del Ministero della Magia.</p></div></li>
+        <li><span class="tag hp">Dom</span><div><b>Stazione di Westminster</b><p>Harry e il signor Weasley nell'<i>Ordine della Fenice</i>.</p></div></li>
+        <li><span class="tag hp">Dom</span><div><b>Lambeth Bridge</b><p>Il Nottetempo tra due autobus.</p></div></li>
+      </ul>
+    </div>
+    <div>
+      <h3>007</h3>
+      <ul class="plist">
+        <li><span class="tag bond">Dom</span><div><b>Reform Club, Pall Mall</b><p>Il duello di scherma in <i>La morte può attendere</i>.</p></div></li>
+        <li><span class="tag bond">Dom</span><div><b>National Gallery</b><p>Bond e Q davanti al Turner in <i>Skyfall</i>.</p></div></li>
+        <li><span class="tag bond">Dom</span><div><b>The Old War Office, Whitehall</b><p>Visto in vari film di Bond.</p></div></li>
+        <li><span class="tag bond">Dom</span><div><b>Westminster Bridge</b><p>Il finale di <i>Spectre</i>.</p></div></li>
+        <li><span class="tag bond">Dom</span><div><b>Quartier generale MI6, Vauxhall</b><p>Fatto saltare in <i>Il mondo non basta</i> e <i>Skyfall</i>. Si vede dal Lambeth Bridge e dal London Eye.</p></div></li>
+        <li><span class="tag bond">Adulti</span><div><b>Dukes Bar, St James's Place</b><p>Il Martini "agitato, non mescolato" che avrebbe ispirato Ian Fleming. Non adatto ai ragazzi.</p></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SPETTACOLI -->
+<section id="spettacoli">
+  <div class="sec-head"><h2>Spettacoli</h2><span class="date">Venerdì sera</span></div>
+  <div class="cards">
+    <div class="card top"><span class="pick">Prima scelta</span><h3>The Lion King · Lyceum</h3><p>Si capisce anche con poco inglese, perché conta molto la parte visiva. A due passi da Covent Garden.</p></div>
+    <div class="card"><h3>Paddington – The Musical · Savoy</h3><p>Recente, molto britannico, per tutti. Verificate le date.</p></div>
+    <div class="card"><h3>Harry Potter and the Cursed Child · Palace</h3><p>Effetti speciali straordinari. Lungo (circa 3 ore e mezza) e con molto dialogo in inglese. Dai 10 anni.</p></div>
+    <div class="card"><h3>Mamma Mia! · Novello</h3><p>Leggero e allegro, musiche che conoscete tutti.</p></div>
+  </div>
+</section>
+
+<!-- PRENOTAZIONI -->
+<section id="prenotazioni">
+  <div class="sec-head"><h2>Da prenotare</h2></div>
+  <p class="lead noprint">Spuntate man mano: le spunte restano salvate su questo telefono.</p>
+  <ul class="check">
+    <li><label><input type="checkbox" id="b1"><span>Spettacolo, venerdì 4 sera<small>The Lion King o alternativa</small></span></label></li>
+    <li><label><input type="checkbox" id="b2"><span>Torre di Londra, venerdì 4 mattina<small>Biglietto famiglia online</small></span></label></li>
+    <li><label><input type="checkbox" id="b3"><span>Natural History Museum, sabato 5 alle 10:00<small>Gratis, ma con fascia oraria</small></span></label></li>
+    <li><label><input type="checkbox" id="b4"><span>Winter Wonderland, sabato 5 pomeriggio<small>Ingresso gratuito con prenotazione</small></span></label></li>
+    <li><label><input type="checkbox" id="b5"><span>London Eye, domenica 6 verso le 15:30</span></label></li>
+    <li><label><input type="checkbox" id="b6"><span>Christmas at Kew, domenica 6 sera</span></label></li>
+    <li><label><input type="checkbox" id="b7"><span>Taxi Heathrow → casa, giovedì 3 ore 21<small>Monovolume o Uber XL</small></span></label></li>
+    <li><label><input type="checkbox" id="b8"><span>Taxi casa → Heathrow, lunedì 7 ore 4:30<small>Monovolume o Uber XL</small></span></label></li>
+    <li><label><input type="checkbox" id="b9"><span>Controllare il calendario del Cambio della Guardia<small>Domenica 6 alle 11:00</small></span></label></li>
+    <li><label><input type="checkbox" id="b10"><span>Carta senza commissioni sulle sterline, una per adulto</span></label></li>
+    <li><label><input type="checkbox" id="b11"><span>Facoltativo: Harry Potter Studio Tour<small>Solo se scegliete la variante di sabato</small></span></label></li>
+  </ul>
+</section>
+
+<!-- INFO -->
+<section id="info">
+  <div class="sec-head"><h2>Info utili</h2></div>
+  <ul class="dots">
+    <li><b>Prese elettriche:</b> tipo G, a tre poli. Serve un adattatore.</li>
+    <li><b>Emergenze:</b> 999.</li>
+    <li><b>Domenica:</b> negozi aperti circa 12–18 (Hamleys chiude alle 18). Westminster Abbey e St Paul's chiuse ai turisti.</li>
+    <li><b>Torre di Londra:</b> apre alle 9:00 dal martedì al sabato, alle 10:00 domenica e lunedì.</li>
+    <li><b>Vestiti:</b> a strati, impermeabile e scarpe comode. Si cammina molto.</li>
+    <li><b>Prezzi e orari:</b> sono indicativi. Verificateli sui siti ufficiali prima di prenotare.</li>
+  </ul>
+</section>
+
+</main>
+<footer class="wrap"><p class="noprint"><a href="guida-stampa.pdf">Scarica la versione da stampare (PDF, A4)</a></p>Guida preparata a novembre 2026 per il viaggio dal 3 al 7 dicembre.</footer>
+
+<script>
+document.querySelectorAll('.check input').forEach(function(box){
+  var key='londra-'+box.id;
+  try{ box.checked = localStorage.getItem(key)==='1'; }catch(e){}
+  box.addEventListener('change',function(){
+    try{ localStorage.setItem(key, box.checked?'1':'0'); }catch(e){}
+  });
+});
+</script>
+
+
+
+</body>
+</html>
