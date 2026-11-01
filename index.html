@@ -25,6 +25,9 @@
   --hp-bg:#f6ecdf;
   --bond-bg:#e8eaee;
   --note-bg:#fff4e0;
+  --uj-blue:#012169;    /* Union Jack */
+  --uj-red:#c8102e;
+  --uj-white:#ffffff;
   --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --body:"Atkinson Hyperlegible", "Helvetica Neue", Arial, system-ui, sans-serif;
 }
@@ -52,6 +55,13 @@ p{margin:0}
 header.top{padding-block:28px 20px}
 .eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
 h1{font-size:clamp(2.2rem,9vw,3.4rem);font-weight:800;line-height:1;letter-spacing:-.02em;margin-top:6px}
+/* Titolo su sfondo Union Jack: bandiera in SVG, velo blu a sinistra per leggere il testo */
+.uj{position:relative;overflow:hidden;border-radius:14px;background:var(--uj-blue);margin-top:6px;padding:clamp(28px,7vw,44px) 20px}
+.uj svg{position:absolute;inset:0;width:100%;height:100%}
+.uj .w{stroke:var(--uj-white)}
+.uj .r{stroke:var(--uj-red)}
+.uj::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,color-mix(in srgb,var(--uj-blue) 88%,transparent) 0%,color-mix(in srgb,var(--uj-blue) 55%,transparent) 55%,transparent 100%)}
+.uj h1{position:relative;z-index:1;margin:0;color:var(--uj-white);text-shadow:0 2px 10px rgb(0 0 0 / .45)}
 .sub{color:var(--muted);margin-top:10px}
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:18px}
 .fact{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
@@ -210,6 +220,7 @@ textarea{min-height:100px;resize:vertical}
   .wrap{max-width:none;padding:0}
   header.top{padding-block:0 8px}
   h1{font-size:26pt}
+  .uj{padding:16px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   h2{font-size:15pt}
   section{padding-block:10px 0;break-inside:auto}
   #giovedi,#venerdi,#sabato,#domenica,#miniguida,#trasporti,#hp007,#prenotazioni{break-before:page}
@@ -231,7 +242,18 @@ textarea{min-height:100px;resize:vertical}
 <body>
 
 <header class="top wrap">
-  <h1>Londra in famiglia</h1>
+  <div class="uj">
+    <svg viewBox="0 0 60 30" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <clipPath id="uj-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath>
+      <g fill="none" vector-effect="non-scaling-stroke">
+        <path class="w" d="M0,0 L60,30 M60,0 L0,30" stroke-width="18" vector-effect="non-scaling-stroke"/>
+        <path class="r" d="M0,0 L60,30 M60,0 L0,30" stroke-width="7" clip-path="url(#uj-t)" vector-effect="non-scaling-stroke"/>
+        <path class="w" d="M30,0 v30 M0,15 h60" stroke-width="30" vector-effect="non-scaling-stroke"/>
+        <path class="r" d="M30,0 v30 M0,15 h60" stroke-width="18" vector-effect="non-scaling-stroke"/>
+      </g>
+    </svg>
+    <h1>Londra in famiglia</h1>
+  </div>
   <p class="sub">2 adulti e 3 ragazzi · Da giovedì 3 a lunedì 7 dicembre 2026 · Alloggio a Londra ovest (zona 3) · Volo: Heathrow</p>
   <div class="facts">
     <div class="fact"><b>15:50</b><span>tramonto: all'aperto la mattina</span></div>
