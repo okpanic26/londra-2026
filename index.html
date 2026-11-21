@@ -25,6 +25,9 @@
   --hp-bg:#f6ecdf;
   --bond-bg:#e8eaee;
   --note-bg:#fff4e0;
+  --circle:#ffd329;     /* linee della metro */
+  --central:#dc241f;
+  --on-circle:#1b1b1b;
   --uj-blue:#012169;    /* Union Jack */
   --uj-red:#c8102e;
   --uj-white:#ffffff;
@@ -105,6 +108,8 @@ section{padding-block:28px 8px;scroll-margin-top:60px}
 .line.d{background:var(--district)}
 .line.p{background:var(--piccadilly)}
 .line.t{background:var(--ink);color:var(--surface)}
+.line.c{background:var(--circle);color:var(--on-circle)}
+.line.ce{background:var(--central);color:#fff}
 :root[data-theme="dark"] .line.d, :root[data-theme="dark"] .line.p{color:#0f141c}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .line.d, :root:not([data-theme="light"]) .line.p{color:#0f141c}}
 
@@ -195,9 +200,18 @@ textarea{min-height:100px;resize:vertical}
 .memo-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
 .memo-photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;display:block}
 
+/* Oggi: giorno e tappa in corso durante il viaggio */
+.stop{scroll-margin-top:70px}
+nav.bar a.today{background:var(--red);border-color:var(--red);color:var(--surface)}
+.tag.today-tag{background:var(--red);color:var(--surface)}
+.stop.now{background:var(--note-bg);border-radius:10px;padding-inline:10px;margin-inline:-10px}
+.now-label{display:block;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin-top:2px}
+
 /* Miniguida */
 .mg-search{display:grid;gap:10px;margin-bottom:16px}
 .mg-list{display:grid;gap:10px}
+.mg-day{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+.mg-day:first-child{margin-top:0}
 .mg{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:8px;min-width:0;scroll-margin-top:64px}
 .mg-head{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
 .mg-head h3{margin-right:auto}
@@ -255,11 +269,11 @@ textarea{min-height:100px;resize:vertical}
     </svg>
     <h1>Londra in famiglia</h1>
   </div>
-  <p class="sub">2 adulti e 3 ragazzi · Da giovedì 3 a lunedì 7 dicembre 2026 · Alloggio a Londra ovest (zona 3) · Volo: Heathrow</p>
+  <p class="sub">2 adulti e 3 ragazzi · Da giovedì 3 a lunedì 7 dicembre 2026 · Alloggio in zona Bayswater · Volo: Heathrow</p>
   <div class="facts">
     <div class="fact"><b>15:50</b><span>tramonto: all'aperto la mattina</span></div>
     <div class="fact"><b>3–9 °C</b><span>freddo e pioggia probabile</span></div>
-    <div class="fact"><b>~£10,50</b><span>tetto metro al giorno per adulto (zone 1–3)</span></div>
+    <div class="fact"><b>~£9</b><span>tetto metro al giorno per adulto (zone 1–2)</span></div>
     <div class="fact"><b>Gratis</b><span>metro e bus sotto gli 11 anni</span></div>
   </div>
 </header>
@@ -290,10 +304,10 @@ textarea{min-height:100px;resize:vertical}
       <p>Controllate il terminal sulla prenotazione.</p></div></li>
     <li class="stop"><div class="time">~22:00</div><div class="what">
       <h3>Taxi o Uber XL fino all'appartamento</h3>
-      <p>Circa 20–25 minuti, <b>£40–55 in tutto</b>. Serve un'auto grande (Uber XL o monovolume) per 5 persone e valigie.</p>
+      <p>Circa 40–50 minuti, <b>£60–80 in tutto</b>. Serve un'auto grande (Uber XL o monovolume) per 5 persone e valigie.</p>
       <div class="tags"><span class="tag book">Prenotare</span></div>
-      <p><b>Alternativa economica:</b> Piccadilly line diretta fino ad Acton Town (circa 30 minuti), poi 10–15 minuti a piedi. Circa £10 in tutto.</p>
-      <div class="ride"><span class="line p">Piccadilly</span> Heathrow → Acton Town · ~30 min</div></div></li>
+      <p><b>Alternativa:</b> Elizabeth line diretta da Heathrow a Paddington (circa 30 minuti), poi un taxi nero per gli ultimi 5 minuti, o 15 minuti a piedi.</p>
+      <div class="ride"><span class="line t">Elizabeth</span> Heathrow → Paddington · ~30 min, diretta</div></div></li>
     <li class="stop"><div class="time">notte</div><div class="what">
       <h3>Check-in e subito a dormire</h3>
       <p>Domani si parte presto.</p></div></li>
@@ -308,7 +322,7 @@ textarea{min-height:100px;resize:vertical}
     <li class="stop"><div class="time">9:00</div><div class="what">
       <h3>In metro verso Victoria</h3>
       <p>Prima comprate una Oyster alla macchinetta per i ragazzi dagli 11 anni in su.</p>
-      <div class="ride"><span class="line d">District</span> Acton Town / Ealing Common → Victoria · ~25 min, diretta</div></div></li>
+      <div class="ride"><span class="line c">Circle</span> Bayswater → Victoria · ~20 min, diretta</div></div></li>
     <li class="stop"><div class="time">9:30</div><div class="what">
       <h3>Victoria: sconto ragazzi</h3>
       <p>Al <b>Visitor Centre</b> della stazione fate attivare lo sconto <b>Young Visitor</b>: metà tariffa per i ragazzi dagli 11 ai 15 anni. Poi 12 minuti a piedi fino a Buckingham Palace.</p></div></li>
@@ -358,11 +372,11 @@ textarea{min-height:100px;resize:vertical}
     <li class="stop"><div class="time">17:50</div><div class="what">
       <h3>Rientro verso casa</h3>
       <p>Sarete stanchi: meglio tornare subito nella vostra zona e cenare lì.</p>
-      <div class="ride"><span class="line p">Piccadilly</span> South Kensington → Acton Town · ~20 min, diretta</div></div></li>
+      <div class="ride"><span class="line c">Circle</span> South Kensington → Bayswater · ~10 min, diretta</div></div></li>
     <li class="stop"><div class="time">18:30</div><div class="what">
       <h3>Cena tranquilla</h3>
       <p><b>Consigliato: cena a casa.</b> Ordinate con un'app di consegne (Deliveroo, Uber Eats o Just Eat) mentre siete in metro, così arriva quando entrate. In alternativa, una spesa veloce al supermercato vicino.</p>
-      <p><b>Se avete voglia di uscire:</b> <b>Chiswick High Road</b>, a una fermata da Gunnersbury o Turnham Green, ha pizzerie, ristoranti e pub con cucina adatti alle famiglie. Il venerdì sera conviene prenotare un tavolo per 5. Nei pub i ragazzi possono entrare se mangiate, di solito fino alle 21.</p></div></li>
+      <p><b>Se avete voglia di uscire:</b> <b>Queensway</b> e le vie intorno, a due passi da casa, hanno pizzerie, ristoranti di tutto il mondo e pub con cucina adatti alle famiglie. Il venerdì sera conviene prenotare un tavolo per 5. Nei pub i ragazzi possono entrare se mangiate, di solito fino alle 21.</p></div></li>
     <li class="stop"><div class="time">sera</div><div class="what">
       <h3>Riposo</h3>
       <p>Domani si parte alle 8:00.</p></div></li>
@@ -372,11 +386,13 @@ textarea{min-height:100px;resize:vertical}
 <!-- SABATO -->
 <section id="sabato">
   <div class="sec-head"><h2>King's Cross, la City e Winter Wonderland</h2><span class="date">Sabato 5 dicembre</span></div>
-  <p class="lead">Le visite della City che erano previste per venerdì si spostano qui. Lo Science Museum diventa facoltativo: avete già il Natural History venerdì e il British Museum domenica.</p>
+  <p class="lead">Mattina tra King's Cross e la City, pomeriggio con le luci del Winter Wonderland. Lo Science Museum è facoltativo: avete già il Natural History venerdì e il British Museum domenica.</p>
   <ol class="tl">
     <li class="stop"><div class="time">8:00</div><div class="what">
       <h3>Partenza</h3>
-      <div class="ride"><span class="line p">Piccadilly</span> Acton Town → King's Cross St Pancras · ~40 min, diretta</div></div></li>
+      <p>A Edgware Road si cambia sulla stessa banchina: prendete il primo treno Circle o Hammersmith &amp; City per King's Cross.</p>
+      <div class="ride"><span class="line c">Circle</span> Bayswater → Edgware Road · 3 fermate</div>
+      <div class="ride"><span class="line c">Circle</span> Edgware Road → King's Cross St Pancras · ~15 min</div></div></li>
     <li class="stop"><div class="time">8:45</div><div class="what">
       <h3>Binario 9¾ e St Pancras</h3>
       <p>Il carrello nel muro: la foto con il vostro telefono è gratuita. Arrivate presto, più tardi la coda è lunghissima. Di fronte, la facciata rossa di <b>St Pancras</b>, dove passa la Ford Anglia volante.</p>
@@ -384,7 +400,7 @@ textarea{min-height:100px;resize:vertical}
       <a class="map" href="https://www.google.com/maps/search/?api=1&query=Platform+9+3/4+King's+Cross" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
     <li class="stop"><div class="time">9:20</div><div class="what">
       <h3>Verso la Torre</h3>
-      <div class="ride"><span class="line t">Circle</span> King's Cross St Pancras → Tower Hill · ~20 min, diretta</div></div></li>
+      <div class="ride"><span class="line c">Circle</span> King's Cross St Pancras → Tower Hill · ~20 min, diretta</div></div></li>
     <li class="stop"><div class="time">9:45</div><div class="what">
       <h3>Torre di Londra</h3>
       <p>Apre alle 9:00. Gioielli della Corona, Beefeaters, corvi. Circa 2 ore.</p>
@@ -410,7 +426,7 @@ textarea{min-height:100px;resize:vertical}
       <a class="map" href="https://www.google.com/maps/search/?api=1&query=Millennium+Bridge+London" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
     <li class="stop"><div class="time">15:15</div><div class="what">
       <h3>Verso Hyde Park</h3>
-      <div class="ride"><span class="line t">Central</span> St Paul's → Marble Arch · ~15 min, diretta</div></div></li>
+      <div class="ride"><span class="line ce">Central</span> St Paul's → Marble Arch · ~15 min, diretta</div></div></li>
     <li class="stop"><div class="time">15:45</div><div class="what">
       <h3>Hyde Park Winter Wonderland</h3>
       <p>Luci, giostre, mercatini, pista di ghiaccio. Ingresso gratuito ma il sabato va prenotato; le attrazioni si pagano.</p>
@@ -418,7 +434,8 @@ textarea{min-height:100px;resize:vertical}
       <a class="map" href="https://www.google.com/maps/search/?api=1&query=Hyde+Park+Winter+Wonderland" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
     <li class="stop"><div class="time">~19:30</div><div class="what">
       <h3>Rientro</h3>
-      <div class="ride"><span class="line p">Piccadilly</span> Hyde Park Corner → Acton Town · ~25 min, diretta</div></div></li>
+      <p>Dall'uscita di Marble Arch del parco. Da Queensway a casa sono pochi minuti a piedi.</p>
+      <div class="ride"><span class="line ce">Central</span> Marble Arch → Queensway · 3 fermate</div></div></li>
   </ol>
   <div class="alt">
     <h3>Facoltativo: Science Museum</h3>
@@ -426,7 +443,7 @@ textarea{min-height:100px;resize:vertical}
   </div>
   <div class="alt">
     <h3>Variante: Harry Potter Studio Tour</h3>
-    <p>Al posto di King's Cross e della City, con l'allestimento <b>"Hogwarts in the Snow"</b>. Fascia oraria verso le 9:30, rientro verso le 15, poi Winter Wonderland la sera. Dalla vostra zona ci vuole oltre un'ora a tratta (Euston → Watford Junction + navetta): valutate un pacchetto con pullman dal centro.</p>
+    <p>Al posto di King's Cross e della City, con l'allestimento <b>"Hogwarts in the Snow"</b>. Fascia oraria verso le 9:30, rientro verso le 15, poi Winter Wonderland la sera. Ci vuole circa un'ora a tratta (Euston → Watford Junction + navetta): valutate un pacchetto con pullman dal centro.</p>
   </div>
 </section>
 
@@ -435,9 +452,10 @@ textarea{min-height:100px;resize:vertical}
   <div class="sec-head"><h2>Guardie, British Museum e London Eye</h2><span class="date">Domenica 6 dicembre</span></div>
   <p class="lead">Giornata piena, con il British Museum alle 11:20. Si comincia con il cambio della guardia a cavallo a Horse Guards, diverso da quello di Buckingham Palace visto venerdì. Westminster Abbey e St Paul's la domenica sono chiuse ai turisti.</p>
   <ol class="tl">
-    <li class="stop"><div class="time">9:15</div><div class="what">
+    <li class="stop"><div class="time">9:20</div><div class="what">
+      <h3>In metro verso Horse Guards</h3>
       <p>Dalla fermata, 10 minuti a piedi attraverso il parco fino a Horse Guards Parade.</p>
-      <div class="ride"><span class="line d">District</span> Acton Town / Ealing Common → St James's Park · ~30 min, diretta</div></div></li>
+      <div class="ride"><span class="line c">Circle</span> Bayswater → St James's Park · ~25 min, diretta</div></div></li>
     <li class="stop"><div class="time">10:00</div><div class="what">
       <h3>Cambio della guardia a cavallo a Horse Guards</h3>
       <p>La domenica alle 10:00, circa 30 minuti, sulla piazza d'armi di Horse Guards Parade. Arrivate 10 minuti prima. Verificate l'orario sul calendario ufficiale.</p>
@@ -479,10 +497,10 @@ textarea{min-height:100px;resize:vertical}
       <p>Mercatino lungo il fiume, merenda calda.</p></div></li>
     <li class="stop"><div class="time">17:15</div><div class="what">
       <h3>Rientro</h3>
-      <div class="ride"><span class="line d">District</span> Westminster → Acton Town / Ealing Common · ~30 min, diretta</div></div></li>
+      <div class="ride"><span class="line c">Circle</span> Westminster → Bayswater · ~25 min, diretta</div></div></li>
     <li class="stop"><div class="time">18:00</div><div class="what">
       <h3>A casa: cena, valigie, a letto presto</h3>
-      <p>Domattina la sveglia è prestissimo: preparate le valigie prima di cena e controllate che il taxi delle 4:30 sia confermato.</p></div></li>
+      <p>Domattina la sveglia è prestissimo: preparate le valigie prima di cena e controllate che il taxi delle 4:00 sia confermato.</p></div></li>
   </ol>
 </section>
 
@@ -490,9 +508,9 @@ textarea{min-height:100px;resize:vertical}
 <section id="lunedi">
   <div class="sec-head"><h2>Partenza</h2><span class="date">Lunedì 7 dicembre</span></div>
   <ol class="tl">
-    <li class="stop"><div class="time">4:30</div><div class="what">
+    <li class="stop"><div class="time">4:00</div><div class="what">
       <h3>Taxi prenotato verso Heathrow</h3>
-      <p>Circa 20 minuti, circa <b>£40–50</b>. Esempio per un volo alle 7:00: essere al terminal verso le 4:50. La metro nella notte tra domenica e lunedì non circola.</p>
+      <p>Di notte circa 35–45 minuti, circa <b>£60–80</b>. Esempio per un volo alle 7:00: essere al terminal verso le 4:45. La metro nella notte tra domenica e lunedì non circola e i primi treni per Heathrow partono troppo tardi.</p>
       <div class="tags"><span class="tag book">Prenotare da casa</span></div></div></li>
   </ol>
 </section>
@@ -514,6 +532,102 @@ textarea{min-height:100px;resize:vertical}
     <p class="status" id="mg-count" role="status"></p>
   </div>
   <div class="mg-list" id="mg-list">
+    <h3 class="mg-day">Venerdì 4</h3>
+    <article class="mg" id="mg-buckingham" data-keys="Buckingham Palace">
+      <div class="mg-head"><h3>Buckingham Palace e il Cambio della Guardia</h3><span class="tag bond">Ven</span></div>
+      <p>La residenza londinese del re, con 775 stanze. Davanti alla cancellata, il Cambio della Guardia con la banda e i soldati con i colbacchi di pelo.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Per i ragazzi</b>Guardate la bandiera sul tetto: se c'è lo stendardo reale, il re è in casa.</li>
+          <li><b>Curiosità</b>I colbacchi delle guardie sono fatti con pelliccia di orso nero canadese. Il palazzo è residenza dei sovrani dal 1837, con la regina Vittoria.</li>
+          <li><b>Musica</b>Durante il Cambio la banda militare a volte suona colonne sonore e canzoni pop, oltre alle marce.</li>
+          <li><b>Cinema</b>Per il Giubileo del 2022 la regina Elisabetta girò un breve filmato con Paddington, prendendo un panino alla marmellata dalla borsetta.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Buckingham+Palace" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Paddington+Queen+marmalade+sandwich" target="_blank" rel="noopener">Video Paddington e la regina</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-stjames" data-keys="St James's Park">
+      <div class="mg-head"><h3>St James's Park e Pall Mall</h3><span class="tag bond">007</span></div>
+      <p>Il parco più antico tra quelli reali, con il lago e la vista su Buckingham Palace. Poco più a nord, i club esclusivi di Pall Mall.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Per i ragazzi</b>Nel lago vivono pellicani dal 1664, quando l'ambasciatore russo ne regalò alcuni al re. Il primo pomeriggio è l'ora della pappa.</li>
+          <li><b>Storie</b>Al Reform Club Phileas Fogg scommette di fare il giro del mondo in 80 giorni, nel romanzo di Jules Verne.</li>
+          <li><b>007</b>Sempre al Reform Club è stato girato il duello di scherma tra Bond e il cattivo in <i>La morte può attendere</i> (2002).</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=St+James%27s+Park" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://it.wikipedia.org/wiki/Special:Search?search=Reform+Club" target="_blank" rel="noopener">Reform Club</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-piccadilly" data-keys="Piccadilly Circus|Leicester Square">
+      <div class="mg-head"><h3>Piccadilly Circus e Leicester Square</h3><span class="tag bond">Ven</span></div>
+      <p>L'incrocio degli schermi luminosi e, a pochi passi, la piazza dei cinema e delle prime dei film. A dicembre a Leicester Square c'è il mercatino di Natale.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Curiosità</b>Il nome Piccadilly viene dai "piccadills", i colletti di pizzo inamidato che nel Seicento vendeva un sarto della zona, diventato ricco abbastanza da costruirsi qui una casa.</li>
+          <li><b>Per i ragazzi</b>La statua alata sulla fontana tutti la chiamano Eros, ma in realtà rappresenta suo fratello Anteros. Fu messa nel 1893.</li>
+          <li><b>Cinema</b>A Leicester Square si tengono le anteprime dei grandi film, con il tappeto rosso. In giro per la piazza ci sono statue di personaggi del cinema: cercate Harry Potter sulla scopa, Paddington, Mary Poppins e Mr Bean.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Piccadilly+Circus" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://it.wikipedia.org/wiki/Special:Search?search=Leicester+Square" target="_blank" rel="noopener">Leicester Square</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-covent" data-keys="Covent Garden|Cecil Court">
+      <div class="mg-head"><h3>Cecil Court, Goodwin's Court e Covent Garden</h3><span class="tag hp">Harry Potter</span></div>
+      <p>Vicoli a due passi da Leicester Square che sembrano Diagon Alley. Poco più in là, la piazza coperta di Covent Garden con il grande albero di Natale e, sullo Strand, la "Gringott".</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Storia</b>Il nome viene da "Convent Garden": qui c'era l'orto dei monaci di Westminster. Fino al 1974 è stato il mercato di frutta e fiori di Londra.</li>
+          <li><b>Cinema e musica</b><i>My Fair Lady</i> si apre proprio qui: Eliza Doolittle vende fiori sotto il portico della chiesa di St Paul's, sul lato ovest della piazza.</li>
+          <li><b>Per i ragazzi</b>Nel 1662 lo scrittore Samuel Pepys annotò qui il primo spettacolo di Punch e Judy, i burattini inglesi, di cui si abbia notizia.</li>
+          <li><b>Curiosità</b>In Cecil Court, nel 1764, abitò per qualche mese Mozart, che allora aveva 8 anni. Più tardi la via fu chiamata "Flicker Alley" perché ospitava le prime case di produzione del cinema.</li>
+          <li><b>Harry Potter</b>Gli interni di Australia House, sullo Strand, sono diventati la banca Gringott nella <i>Pietra Filosofale</i> e nei <i>Doni della Morte – Parte 2</i>.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Covent+Garden" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Goodwin%27s+Court+Cecil+Court+Harry+Potter" target="_blank" rel="noopener">Video sui vicoli</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-carnaby" data-keys="Carnaby|Selfridges">
+      <div class="mg-head"><h3>Carnaby Street, Oxford Street e Selfridges</h3><span class="tag bond">Ven</span></div>
+      <p>La via della moda degli anni Sessanta e la grande strada dello shopping, con le luci di Natale sopra la testa. In fondo, i grandi magazzini Selfridges.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Musica</b>Negli anni Sessanta Carnaby Street era il cuore della "Swinging London": qui si vestivano i mod e le band come The Who e i Rolling Stones.</li>
+          <li><b>A dicembre</b>Ogni anno Carnaby sceglie un tema diverso per le decorazioni sospese sopra la via. Oxford Street e Regent Street accendono le loro luci di Natale già a novembre.</li>
+          <li><b>Storia</b>Selfridges fu aperto nel 1909 dall'americano Harry Gordon Selfridge, che voleva rendere lo shopping un divertimento. La sua storia è raccontata nella serie TV <i>Mr Selfridge</i>.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Carnaby+Street" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://it.wikipedia.org/wiki/Special:Search?search=Selfridges" target="_blank" rel="noopener">Selfridges</a></p>
+      </details>
+    </article>
+
+    <article class="mg" id="mg-nhm" data-keys="Natural History Museum">
+      <div class="mg-head"><h3>Natural History Museum</h3><span class="tag bond">Ven</span></div>
+      <p>La "cattedrale della natura": dinosauri, minerali, la sala dei terremoti e lo scheletro di una balenottera azzurra sospeso nella sala centrale.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Per i ragazzi</b>Guardate le decorazioni in terracotta sulla facciata: nell'ala ovest ci sono animali viventi, nell'ala est animali estinti.</li>
+          <li><b>Curiosità</b>La balenottera azzurra "Hope" è appesa dal 2017. Prima, nella sala centrale c'era Dippy, la copia dello scheletro di un diplodoco. Sullo scalone vi guarda la statua di Charles Darwin.</li>
+          <li><b>Cinema</b>Il finale di <i>Paddington</i> (2014) è ambientato proprio qui, con la cattiva imbalsamatrice interpretata da Nicole Kidman.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Natural+History+Museum+Londra" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.nhm.ac.uk/" target="_blank" rel="noopener">Sito ufficiale</a></p>
+      </details>
+    </article>
+
+    <h3 class="mg-day">Sabato 5</h3>
+    <article class="mg" id="mg-kingscross" data-keys="Binario 9¾">
+      <div class="mg-head"><h3>King's Cross e St Pancras</h3><span class="tag hp">Harry Potter</span></div>
+      <p>Due stazioni affiancate: a King's Cross il carrello del Binario 9¾, di fronte la facciata gotica in mattoni rossi di St Pancras, da dove partono i treni per Parigi.</p>
+      <details><summary>Curiosità, storie, film e musica</summary>
+        <ul class="mg-facts">
+          <li><b>Harry Potter</b>Le scene del binario sono state girate tra i binari 4 e 5. La facciata di St Pancras compare nei film al posto di quella, più semplice, di King's Cross.</li>
+          <li><b>Curiosità</b>J.K. Rowling ha raccontato che, scrivendo, aveva in mente la stazione di Euston e non King's Cross.</li>
+          <li><b>Per i ragazzi</b>Una leggenda metropolitana dice che sotto un binario di King's Cross sia sepolta Boudicca, la regina guerriera che combatté contro i Romani.</li>
+          <li><b>Musica</b>Il video di <i>Wannabe</i> delle Spice Girls (1996) è stato girato sullo scalone dell'hotel di St Pancras.</li>
+        </ul>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Stazione+di+London+King%27s+Cross" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Platform+9+3%2F4+King%27s+Cross" target="_blank" rel="noopener">Video</a></p>
+      </details>
+    </article>
 
     <article class="mg" id="mg-torre" data-keys="Torre di Londra">
       <div class="mg-head"><h3>Torre di Londra</h3><span class="tag bond">Sab</span></div>
@@ -596,71 +710,17 @@ textarea{min-height:100px;resize:vertical}
       </details>
     </article>
 
-    <article class="mg" id="mg-covent" data-keys="Covent Garden|Cecil Court">
-      <div class="mg-head"><h3>Covent Garden e i vicoli magici</h3><span class="tag hp">Harry Potter</span></div>
-      <p>Piazza coperta con negozi, artisti di strada e, a dicembre, un enorme albero di Natale. Intorno, vicoli che sembrano Diagon Alley e la "Gringott" sullo Strand.</p>
+    <article class="mg" id="mg-hydepark" data-keys="Winter Wonderland">
+      <div class="mg-head"><h3>Hyde Park e Winter Wonderland</h3><span class="tag bond">Sab</span></div>
+      <p>Il grande parco reale nel cuore di Londra. A dicembre ospita Winter Wonderland, il luna park natalizio con mercatini e pista di ghiaccio.</p>
       <details><summary>Curiosità, storie, film e musica</summary>
         <ul class="mg-facts">
-          <li><b>Storia</b>Il nome viene da "Convent Garden": qui c'era l'orto dei monaci di Westminster. Fino al 1974 è stato il mercato di frutta e fiori di Londra.</li>
-          <li><b>Cinema e musica</b><i>My Fair Lady</i> si apre proprio qui: Eliza Doolittle vende fiori sotto il portico della chiesa di St Paul's, sul lato ovest della piazza.</li>
-          <li><b>Per i ragazzi</b>Nel 1662 lo scrittore Samuel Pepys annotò qui il primo spettacolo di Punch e Judy, i burattini inglesi, di cui si abbia notizia.</li>
-          <li><b>Curiosità</b>In Cecil Court, nel 1764, abitò per qualche mese Mozart, che allora aveva 8 anni. Più tardi la via fu chiamata "Flicker Alley" perché ospitava le prime case di produzione del cinema.</li>
-          <li><b>Harry Potter</b>Gli interni di Australia House, sullo Strand, sono diventati la banca Gringott nella <i>Pietra Filosofale</i> e nei <i>Doni della Morte – Parte 2</i>.</li>
+          <li><b>Storia</b>Era la riserva di caccia di Enrico VIII. Nel 1851 ospitò la Grande Esposizione nel Crystal Palace, un gigantesco palazzo di vetro.</li>
+          <li><b>Musica</b>Qui si sono tenuti concerti storici: i Rolling Stones nel 1969, i Queen nel 1976, il Live 8 nel 2005.</li>
+          <li><b>Per i ragazzi</b>Nei vicini Kensington Gardens c'è la statua di Peter Pan: J.M. Barrie la fece installare di nascosto in una notte del 1912, come se fosse apparsa per magia.</li>
+          <li><b>Curiosità</b>La domenica allo Speakers' Corner chiunque può salire su una cassetta e tenere un discorso.</li>
         </ul>
-        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Covent+Garden" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Goodwin%27s+Court+Cecil+Court+Harry+Potter" target="_blank" rel="noopener">Video sui vicoli</a></p>
-      </details>
-    </article>
-
-    <article class="mg" id="mg-kingscross" data-keys="Binario 9¾">
-      <div class="mg-head"><h3>King's Cross e St Pancras</h3><span class="tag hp">Harry Potter</span></div>
-      <p>Due stazioni affiancate: a King's Cross il carrello del Binario 9¾, di fronte la facciata gotica in mattoni rossi di St Pancras, da dove partono i treni per Parigi.</p>
-      <details><summary>Curiosità, storie, film e musica</summary>
-        <ul class="mg-facts">
-          <li><b>Harry Potter</b>Le scene del binario sono state girate tra i binari 4 e 5. La facciata di St Pancras compare nei film al posto di quella, più semplice, di King's Cross.</li>
-          <li><b>Curiosità</b>J.K. Rowling ha raccontato che, scrivendo, aveva in mente la stazione di Euston e non King's Cross.</li>
-          <li><b>Per i ragazzi</b>Una leggenda metropolitana dice che sotto un binario di King's Cross sia sepolta Boudicca, la regina guerriera che combatté contro i Romani.</li>
-          <li><b>Musica</b>Il video di <i>Wannabe</i> delle Spice Girls (1996) è stato girato sullo scalone dell'hotel di St Pancras.</li>
-        </ul>
-        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Stazione+di+London+King%27s+Cross" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Platform+9+3%2F4+King%27s+Cross" target="_blank" rel="noopener">Video</a></p>
-      </details>
-    </article>
-
-    <article class="mg" id="mg-piccadilly" data-keys="Piccadilly Circus|Leicester Square">
-      <div class="mg-head"><h3>Piccadilly Circus e Leicester Square</h3><span class="tag bond">Ven</span></div>
-      <p>L'incrocio degli schermi luminosi e, a pochi passi, la piazza dei cinema e delle prime dei film. A dicembre a Leicester Square c'è il mercatino di Natale.</p>
-      <details><summary>Curiosità, storie, film e musica</summary>
-        <ul class="mg-facts">
-          <li><b>Curiosità</b>Il nome Piccadilly viene dai "piccadills", i colletti di pizzo inamidato che nel Seicento vendeva un sarto della zona, diventato ricco abbastanza da costruirsi qui una casa.</li>
-          <li><b>Per i ragazzi</b>La statua alata sulla fontana tutti la chiamano Eros, ma in realtà rappresenta suo fratello Anteros. Fu messa nel 1893.</li>
-          <li><b>Cinema</b>A Leicester Square si tengono le anteprime dei grandi film, con il tappeto rosso. In giro per la piazza ci sono statue di personaggi del cinema: cercate Harry Potter sulla scopa, Paddington, Mary Poppins e Mr Bean.</li>
-        </ul>
-        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Piccadilly+Circus" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://it.wikipedia.org/wiki/Special:Search?search=Leicester+Square" target="_blank" rel="noopener">Leicester Square</a></p>
-      </details>
-    </article>
-
-    <article class="mg" id="mg-carnaby" data-keys="Carnaby|Selfridges">
-      <div class="mg-head"><h3>Carnaby Street, Oxford Street e Selfridges</h3><span class="tag bond">Ven</span></div>
-      <p>La via della moda degli anni Sessanta e la grande strada dello shopping, con le luci di Natale sopra la testa. In fondo, i grandi magazzini Selfridges.</p>
-      <details><summary>Curiosità, storie, film e musica</summary>
-        <ul class="mg-facts">
-          <li><b>Musica</b>Negli anni Sessanta Carnaby Street era il cuore della "Swinging London": qui si vestivano i mod e le band come The Who e i Rolling Stones.</li>
-          <li><b>A dicembre</b>Ogni anno Carnaby sceglie un tema diverso per le decorazioni sospese sopra la via. Oxford Street e Regent Street accendono le loro luci di Natale già a novembre.</li>
-          <li><b>Storia</b>Selfridges fu aperto nel 1909 dall'americano Harry Gordon Selfridge, che voleva rendere lo shopping un divertimento. La sua storia è raccontata nella serie TV <i>Mr Selfridge</i>.</li>
-        </ul>
-        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Carnaby+Street" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://it.wikipedia.org/wiki/Special:Search?search=Selfridges" target="_blank" rel="noopener">Selfridges</a></p>
-      </details>
-    </article>
-
-    <article class="mg" id="mg-nhm" data-keys="Natural History Museum">
-      <div class="mg-head"><h3>Natural History Museum</h3><span class="tag bond">Ven</span></div>
-      <p>La "cattedrale della natura": dinosauri, minerali, la sala dei terremoti e lo scheletro di una balenottera azzurra sospeso nella sala centrale.</p>
-      <details><summary>Curiosità, storie, film e musica</summary>
-        <ul class="mg-facts">
-          <li><b>Per i ragazzi</b>Guardate le decorazioni in terracotta sulla facciata: nell'ala ovest ci sono animali viventi, nell'ala est animali estinti.</li>
-          <li><b>Curiosità</b>La balenottera azzurra "Hope" è appesa dal 2017. Prima, nella sala centrale c'era Dippy, la copia dello scheletro di un diplodoco. Sullo scalone vi guarda la statua di Charles Darwin.</li>
-          <li><b>Cinema</b>Il finale di <i>Paddington</i> (2014) è ambientato proprio qui, con la cattiva imbalsamatrice interpretata da Nicole Kidman.</li>
-        </ul>
-        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Natural+History+Museum+Londra" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.nhm.ac.uk/" target="_blank" rel="noopener">Sito ufficiale</a></p>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Hyde+Park+Londra" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://hydeparkwinterwonderland.com/" target="_blank" rel="noopener">Winter Wonderland</a></p>
       </details>
     </article>
 
@@ -677,44 +737,31 @@ textarea{min-height:100px;resize:vertical}
       </details>
     </article>
 
-    <article class="mg" id="mg-hydepark" data-keys="Winter Wonderland">
-      <div class="mg-head"><h3>Hyde Park e Winter Wonderland</h3><span class="tag bond">Sab</span></div>
-      <p>Il grande parco reale nel cuore di Londra. A dicembre ospita Winter Wonderland, il luna park natalizio con mercatini e pista di ghiaccio.</p>
+    <article class="mg" id="mg-studio" data-keys="Harry Potter Studio Tour">
+      <div class="mg-head"><h3>Harry Potter Studio Tour (variante)</h3><span class="tag hp">Harry Potter</span><span class="tag bond">007</span></div>
+      <p>Gli studi di Leavesden, dove sono stati girati tutti gli otto film: Sala Grande, Diagon Alley, il plastico di Hogwarts. A dicembre è tutto innevato.</p>
       <details><summary>Curiosità, storie, film e musica</summary>
         <ul class="mg-facts">
-          <li><b>Storia</b>Era la riserva di caccia di Enrico VIII. Nel 1851 ospitò la Grande Esposizione nel Crystal Palace, un gigantesco palazzo di vetro.</li>
-          <li><b>Musica</b>Qui si sono tenuti concerti storici: i Rolling Stones nel 1969, i Queen nel 1976, il Live 8 nel 2005.</li>
-          <li><b>Per i ragazzi</b>Nei vicini Kensington Gardens c'è la statua di Peter Pan: J.M. Barrie la fece installare di nascosto in una notte del 1912, come se fosse apparsa per magia.</li>
-          <li><b>Curiosità</b>La domenica allo Speakers' Corner chiunque può salire su una cassetta e tenere un discorso.</li>
+          <li><b>007</b>Prima di Harry Potter, in questi capannoni (un'ex fabbrica di motori d'aereo) è stato girato <i>GoldenEye</i> (1995), con Pierce Brosnan.</li>
+          <li><b>Per i ragazzi</b>Il plastico di Hogwarts è in scala 1:24 ed è stato usato per le riprese dall'alto del castello. Al bar si assaggia la Burrobirra.</li>
         </ul>
-        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Hyde+Park+Londra" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://hydeparkwinterwonderland.com/" target="_blank" rel="noopener">Winter Wonderland</a></p>
+        <p class="mg-links">Approfondisci: <a href="https://www.wbstudiotour.co.uk/" target="_blank" rel="noopener">Sito ufficiale</a> · <a href="https://www.youtube.com/results?search_query=Hogwarts+in+the+Snow+studio+tour" target="_blank" rel="noopener">Video Hogwarts in the Snow</a></p>
       </details>
     </article>
 
-    <article class="mg" id="mg-buckingham" data-keys="Buckingham Palace">
-      <div class="mg-head"><h3>Buckingham Palace e il Cambio della Guardia</h3><span class="tag bond">Ven</span></div>
-      <p>La residenza londinese del re, con 775 stanze. Davanti alla cancellata, il Cambio della Guardia con la banda e i soldati con i colbacchi di pelo.</p>
+    <h3 class="mg-day">Domenica 6</h3>
+    <article class="mg" id="mg-whitehall" data-keys="Whitehall|Horse Guards">
+      <div class="mg-head"><h3>Whitehall</h3><span class="tag hp">Harry Potter</span><span class="tag bond">007</span></div>
+      <p>La strada dei ministeri, tra Trafalgar Square e il Parlamento: Horse Guards con le sentinelle a cavallo, Downing Street e l'ex Ministero della Guerra.</p>
       <details><summary>Curiosità, storie, film e musica</summary>
         <ul class="mg-facts">
-          <li><b>Per i ragazzi</b>Guardate la bandiera sul tetto: se c'è lo stendardo reale, il re è in casa.</li>
-          <li><b>Curiosità</b>I colbacchi delle guardie sono fatti con pelliccia di orso nero canadese. Il palazzo è residenza dei sovrani dal 1837, con la regina Vittoria.</li>
-          <li><b>Musica</b>Durante il Cambio la banda militare a volte suona colonne sonore e canzoni pop, oltre alle marce.</li>
-          <li><b>Cinema</b>Per il Giubileo del 2022 la regina Elisabetta girò un breve filmato con Paddington, prendendo un panino alla marmellata dalla borsetta.</li>
+          <li><b>007</b>Durante la Seconda guerra mondiale Ian Fleming, il creatore di Bond, lavorava qui vicino, nei servizi segreti della Marina. Nell'Old War Office lavorò anche Churchill; oggi è un hotel di lusso.</li>
+          <li><b>Harry Potter</b>Nei <i>Doni della Morte</i> si entra al Ministero della Magia da una cabina telefonica in Scotland Place, componendo 62442: sulla tastiera si legge "MAGIC".</li>
+          <li><b>Curiosità</b>"Scotland Yard", il nome della polizia di Londra, viene dalla via Great Scotland Yard, dove nel 1829 aveva la sua prima sede.</li>
+          <li><b>La domenica</b>Alle 10:00, sulla piazza d'armi di Horse Guards Parade, la Guardia della Regina a cavallo, la Household Cavalry, dà il cambio alla vecchia guardia: elmi lucidi, corazze e trombe.</li>
+          <li><b>Per i ragazzi</b>Le sentinelle a cavallo di Horse Guards cambiano ogni ora. Non disturbatele: i cavalli possono mordere.</li>
         </ul>
-        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Buckingham+Palace" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Paddington+Queen+marmalade+sandwich" target="_blank" rel="noopener">Video Paddington e la regina</a></p>
-      </details>
-    </article>
-
-    <article class="mg" id="mg-stjames" data-keys="St James's Park">
-      <div class="mg-head"><h3>St James's Park e Pall Mall</h3><span class="tag bond">007</span></div>
-      <p>Il parco più antico tra quelli reali, con il lago e la vista su Buckingham Palace. Poco più a nord, i club esclusivi di Pall Mall.</p>
-      <details><summary>Curiosità, storie, film e musica</summary>
-        <ul class="mg-facts">
-          <li><b>Per i ragazzi</b>Nel lago vivono pellicani dal 1664, quando l'ambasciatore russo ne regalò alcuni al re. Il primo pomeriggio è l'ora della pappa.</li>
-          <li><b>Storie</b>Al Reform Club Phileas Fogg scommette di fare il giro del mondo in 80 giorni, nel romanzo di Jules Verne.</li>
-          <li><b>007</b>Sempre al Reform Club è stato girato il duello di scherma tra Bond e il cattivo in <i>La morte può attendere</i> (2002).</li>
-        </ul>
-        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=St+James%27s+Park" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://it.wikipedia.org/wiki/Special:Search?search=Reform+Club" target="_blank" rel="noopener">Reform Club</a></p>
+        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Whitehall" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Ministry+of+Magic+phone+box+scene" target="_blank" rel="noopener">Video della cabina</a></p>
       </details>
     </article>
 
@@ -744,21 +791,6 @@ textarea{min-height:100px;resize:vertical}
           <li><b>Per i ragazzi</b>Cercate i <i>Girasoli</i> di Van Gogh. Fuori, il "quarto piedistallo" della piazza ospita a turno un'opera d'arte contemporanea.</li>
         </ul>
         <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Trafalgar+Square" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.nationalgallery.org.uk/" target="_blank" rel="noopener">National Gallery</a></p>
-      </details>
-    </article>
-
-    <article class="mg" id="mg-whitehall" data-keys="Whitehall|Horse Guards">
-      <div class="mg-head"><h3>Whitehall</h3><span class="tag hp">Harry Potter</span><span class="tag bond">007</span></div>
-      <p>La strada dei ministeri, tra Trafalgar Square e il Parlamento: Horse Guards con le sentinelle a cavallo, Downing Street e l'ex Ministero della Guerra.</p>
-      <details><summary>Curiosità, storie, film e musica</summary>
-        <ul class="mg-facts">
-          <li><b>007</b>Durante la Seconda guerra mondiale Ian Fleming, il creatore di Bond, lavorava qui vicino, nei servizi segreti della Marina. Nell'Old War Office lavorò anche Churchill; oggi è un hotel di lusso.</li>
-          <li><b>Harry Potter</b>Nei <i>Doni della Morte</i> si entra al Ministero della Magia da una cabina telefonica in Scotland Place, componendo 62442: sulla tastiera si legge "MAGIC".</li>
-          <li><b>Curiosità</b>"Scotland Yard", il nome della polizia di Londra, viene dalla via Great Scotland Yard, dove nel 1829 aveva la sua prima sede.</li>
-          <li><b>La domenica</b>Alle 10:00, sulla piazza d'armi di Horse Guards Parade, la Guardia della Regina a cavallo, la Household Cavalry, dà il cambio alla vecchia guardia: elmi lucidi, corazze e trombe.</li>
-          <li><b>Per i ragazzi</b>Le sentinelle a cavallo di Horse Guards cambiano ogni ora. Non disturbatele: i cavalli possono mordere.</li>
-        </ul>
-        <p class="mg-links">Approfondisci: <a href="https://it.wikipedia.org/wiki/Special:Search?search=Whitehall" target="_blank" rel="noopener">Wikipedia</a> · <a href="https://www.youtube.com/results?search_query=Ministry+of+Magic+phone+box+scene" target="_blank" rel="noopener">Video della cabina</a></p>
       </details>
     </article>
 
@@ -802,18 +834,6 @@ textarea{min-height:100px;resize:vertical}
       </details>
     </article>
 
-    <article class="mg" id="mg-studio" data-keys="Harry Potter Studio Tour">
-      <div class="mg-head"><h3>Harry Potter Studio Tour (variante)</h3><span class="tag hp">Harry Potter</span><span class="tag bond">007</span></div>
-      <p>Gli studi di Leavesden, dove sono stati girati tutti gli otto film: Sala Grande, Diagon Alley, il plastico di Hogwarts. A dicembre è tutto innevato.</p>
-      <details><summary>Curiosità, storie, film e musica</summary>
-        <ul class="mg-facts">
-          <li><b>007</b>Prima di Harry Potter, in questi capannoni (un'ex fabbrica di motori d'aereo) è stato girato <i>GoldenEye</i> (1995), con Pierce Brosnan.</li>
-          <li><b>Per i ragazzi</b>Il plastico di Hogwarts è in scala 1:24 ed è stato usato per le riprese dall'alto del castello. Al bar si assaggia la Burrobirra.</li>
-        </ul>
-        <p class="mg-links">Approfondisci: <a href="https://www.wbstudiotour.co.uk/" target="_blank" rel="noopener">Sito ufficiale</a> · <a href="https://www.youtube.com/results?search_query=Hogwarts+in+the+Snow+studio+tour" target="_blank" rel="noopener">Video Hogwarts in the Snow</a></p>
-      </details>
-    </article>
-
   </div>
   <p class="status" id="mg-none" hidden>Nessuna scheda trovata. Provate con un'altra parola.</p>
 </section>
@@ -821,16 +841,18 @@ textarea{min-height:100px;resize:vertical}
 <!-- TRASPORTI -->
 <section id="trasporti">
   <div class="sec-head"><h2>Trasporti</h2></div>
-  <p class="lead">Le stazioni più vicine dovrebbero essere <b>Acton Town</b> o <b>Ealing Common</b>, 10–15 minuti a piedi: controllate su Citymapper quale vi conviene. Da lì passano due linee dirette per tutto il programma.</p>
+  <p class="lead">Dall'alloggio le stazioni più vicine sono <b>Bayswater</b> (Circle e District) e <b>Queensway</b> (Central), a pochi minuti a piedi: con l'indirizzo esatto controllate su Citymapper quale vi conviene. <b>Paddington</b>, per l'Elizabeth line, è a circa 15 minuti. Quasi tutti gli spostamenti del programma sono un solo treno.</p>
   <div class="cards">
-    <div class="card"><h3><span class="line d">District</span></h3><p>Victoria, St James's Park, Westminster, Tower Hill, South Kensington.</p></div>
-    <div class="card"><h3><span class="line p">Piccadilly</span></h3><p>Heathrow, South Kensington, Green Park, Hyde Park Corner, Piccadilly Circus, Leicester Square, Covent Garden, King's Cross.</p></div>
+    <div class="card"><h3><span class="line c">Circle</span></h3><p>Da Bayswater, diretta: South Kensington, Victoria, St James's Park, Westminster, Tower Hill. Per King's Cross si cambia a Edgware Road.</p></div>
+    <div class="card"><h3><span class="line ce">Central</span></h3><p>Da Queensway, diretta: Marble Arch, Bond Street, Oxford Circus, Tottenham Court Road, St Paul's.</p></div>
+    <div class="card"><h3><span class="line t">Elizabeth</span></h3><p>Da Paddington, diretta: Heathrow. In centro: Bond Street e Tottenham Court Road.</p></div>
+    <div class="card"><h3>Altre linee</h3><p>Piccadilly e Jubilee venerdì, per arrivare al Natural History Museum. Northern domenica, per il British Museum.</p></div>
   </div>
   <h3 style="margin-top:22px;margin-bottom:8px">Chi paga e come</h3>
   <div class="tbl"><table>
     <thead><tr><th>Chi</th><th>Come</th><th>Costo</th></tr></thead>
     <tbody>
-      <tr><td>Adulti</td><td>Carta contactless o telefono, <b>uno a testa</b>. Il sistema smette di addebitare al raggiungimento del tetto.</td><td class="num">max ~£10,50/giorno</td></tr>
+      <tr><td>Adulti</td><td>Carta contactless o telefono, <b>uno a testa</b>. Il sistema smette di addebitare al raggiungimento del tetto.</td><td class="num">max ~£9/giorno</td></tr>
       <tr><td>Sotto gli 11 anni</td><td>Nessun biglietto. Passano dal tornello largo con un adulto (fino a 4 per adulto).</td><td class="num">gratis</td></tr>
       <tr><td>Dagli 11 ai 15 anni</td><td>Oyster (circa £7) con sconto <b>Young Visitor</b>, attivato al Visitor Centre di Victoria venerdì mattina.</td><td class="num">metà tariffa</td></tr>
     </tbody>
@@ -839,8 +861,8 @@ textarea{min-height:100px;resize:vertical}
   <div class="tbl"><table>
     <thead><tr><th>Quando</th><th>Come</th><th>Costo</th></tr></thead>
     <tbody>
-      <tr><td>Gio 3, ~22:00</td><td>Taxi o Uber XL Heathrow → casa, ~20–25 min</td><td class="num">£40–55 in tutto</td></tr>
-      <tr><td>Lun 7, 4:30</td><td>Taxi prenotato casa → Heathrow, ~20 min</td><td class="num">£40–50 in tutto</td></tr>
+      <tr><td>Gio 3, ~22:00</td><td>Taxi o Uber XL Heathrow → casa, ~40–50 min</td><td class="num">£60–80 in tutto</td></tr>
+      <tr><td>Lun 7, 4:00</td><td>Taxi prenotato casa → Heathrow, ~35–45 min</td><td class="num">£60–80 in tutto</td></tr>
     </tbody>
   </table></div>
   <div class="note"><b>Consigli.</b> Scaricate <b>Citymapper</b> o <b>TfL Go</b>. Evitate la metro tra 7:30–9:30 e 17–19. Usate una carta senza commissioni sulle sterline. I taxi neri portano 5 persone. Sui bus a due piani sedetevi al piano di sopra, davanti.</div>
@@ -854,24 +876,24 @@ textarea{min-height:100px;resize:vertical}
     <div>
       <h3>Harry Potter</h3>
       <ul class="plist">
-        <li><span class="tag hp">Sab</span><div><b>Leadenhall Market</b><p>Diagon Alley e la porta del Paiolo Magico, in Bull's Head Passage.</p></div></li>
-        <li><span class="tag hp">Sab</span><div><b>Millennium Bridge</b><p>Distrutto dai Mangiamorte nel <i>Principe Mezzosangue</i>.</p></div></li>
         <li><span class="tag hp">Ven</span><div><b>Cecil Court e Goodwin's Court</b><p>Vicoli che ricordano Diagon Alley.</p></div></li>
-        <li><span class="tag hp">Extra</span><div><b>Australia House, Strand</b><p>Gli interni della Gringott. Solo da fuori, a 10 minuti a piedi da Leicester Square.</p></div></li>
         <li><span class="tag hp">Sab</span><div><b>Binario 9¾, King's Cross</b><p>La foto con il carrello. Prima delle 9.</p></div></li>
         <li><span class="tag hp">Sab</span><div><b>St Pancras</b><p>La Ford Anglia volante nella <i>Camera dei Segreti</i>.</p></div></li>
+        <li><span class="tag hp">Sab</span><div><b>Leadenhall Market</b><p>Diagon Alley e la porta del Paiolo Magico, in Bull's Head Passage.</p></div></li>
+        <li><span class="tag hp">Sab</span><div><b>Millennium Bridge</b><p>Distrutto dai Mangiamorte nel <i>Principe Mezzosangue</i>.</p></div></li>
         <li><span class="tag hp">Dom</span><div><b>Scotland Place, Whitehall</b><p>L'ingresso del Ministero della Magia.</p></div></li>
         <li><span class="tag hp">Dom</span><div><b>Stazione di Westminster</b><p>Harry e il signor Weasley nell'<i>Ordine della Fenice</i>.</p></div></li>
-        <li><span class="tag hp">Dom</span><div><b>Lambeth Bridge</b><p>Il Nottetempo tra due autobus. Si vede dall'alto del London Eye.</p></div></li>
         <li><span class="tag hp">Dom</span><div><b>British Museum</b><p>Gli scacchi di Lewis, che hanno ispirato gli scacchi magici della <i>Pietra Filosofale</i>.</p></div></li>
+        <li><span class="tag hp">Dom</span><div><b>Lambeth Bridge</b><p>Il Nottetempo tra due autobus. Si vede dall'alto del London Eye.</p></div></li>
+        <li><span class="tag hp">Extra</span><div><b>Australia House, Strand</b><p>Gli interni della Gringott. Solo da fuori, a 10 minuti a piedi da Leicester Square.</p></div></li>
       </ul>
     </div>
     <div>
       <h3>007</h3>
       <ul class="plist">
         <li><span class="tag bond">Ven</span><div><b>Reform Club, Pall Mall</b><p>Il duello di scherma in <i>La morte può attendere</i>. Ci passate davanti andando a Piccadilly Circus.</p></div></li>
-        <li><span class="tag bond">Dom</span><div><b>National Gallery</b><p>Bond e Q davanti al Turner in <i>Skyfall</i>.</p></div></li>
         <li><span class="tag bond">Dom</span><div><b>The Old War Office, Whitehall</b><p>Visto in vari film di Bond.</p></div></li>
+        <li><span class="tag bond">Dom</span><div><b>National Gallery</b><p>Bond e Q davanti al Turner in <i>Skyfall</i>.</p></div></li>
         <li><span class="tag bond">Dom</span><div><b>Westminster Bridge</b><p>Il finale di <i>Spectre</i>.</p></div></li>
         <li><span class="tag bond">Dom</span><div><b>Quartier generale MI6, Vauxhall</b><p>Fatto saltare in <i>Il mondo non basta</i> e <i>Skyfall</i>. Si vede dal London Eye.</p></div></li>
         <li><span class="tag bond">Adulti</span><div><b>Dukes Bar, St James's Place</b><p>Il Martini "agitato, non mescolato" che avrebbe ispirato Ian Fleming. Non adatto ai ragazzi.</p></div></li>
@@ -890,7 +912,8 @@ textarea{min-height:100px;resize:vertical}
     <li><label><input type="checkbox" id="b5"><span>London Eye, domenica 6 verso le 15:45–16:00</span></label></li>
     <li><label><input type="checkbox" id="b4"><span>Winter Wonderland, sabato 5 pomeriggio<small>Ingresso gratuito con prenotazione</small></span></label></li>
     <li><label><input type="checkbox" id="b7"><span>Taxi Heathrow → casa, giovedì 3 ore 21<small>Monovolume o Uber XL</small></span></label></li>
-    <li><label><input type="checkbox" id="b8"><span>Taxi casa → Heathrow, lunedì 7 ore 4:30<small>Monovolume o Uber XL</small></span></label></li>
+    <li><label><input type="checkbox" id="b8"><span>Taxi casa → Heathrow, lunedì 7 ore 4:00<small>Monovolume o Uber XL</small></span></label></li>
+    <li><label><input type="checkbox" id="b12"><span>Controllare il calendario del Cambio della Guardia<small>Venerdì 4 alle 11:00 a Buckingham Palace</small></span></label></li>
     <li><label><input type="checkbox" id="b9"><span>Controllare l'orario della guardia a cavallo a Horse Guards<small>Domenica 6 alle 10:00</small></span></label></li>
     <li><label><input type="checkbox" id="b10"><span>Carta senza commissioni sulle sterline, una per adulto</span></label></li>
     <li><label><input type="checkbox" id="b11"><span>Facoltativo: Harry Potter Studio Tour<small>Solo se scegliete la variante di sabato</small></span></label></li>
@@ -903,7 +926,7 @@ textarea{min-height:100px;resize:vertical}
   <ul class="dots">
     <li><b>Prese elettriche:</b> tipo G, a tre poli. Serve un adattatore.</li>
     <li><b>Emergenze:</b> 999.</li>
-    <li><b>Domenica:</b> negozi aperti circa 12–18 (Hamleys chiude alle 18). Westminster Abbey e St Paul's chiuse ai turisti.</li>
+    <li><b>Domenica:</b> negozi aperti circa 12–18. Westminster Abbey e St Paul's chiuse ai turisti.</li>
     <li><b>Torre di Londra:</b> apre alle 9:00 dal martedì al sabato, alle 10:00 domenica e lunedì.</li>
     <li><b>Vestiti:</b> a strati, impermeabile e scarpe comode. Si cammina molto.</li>
     <li><b>Prezzi e orari:</b> sono indicativi. Verificateli sui siti ufficiali prima di prenotare.</li>
@@ -947,6 +970,7 @@ document.querySelectorAll('.check input').forEach(function(box){
       var d=c.querySelector('details');
       if(d){if(v&&hit){if(!d.open){d.open=true;d.dataset.auto='1'}}else if(d.dataset.auto){d.open=false;d.dataset.auto=''}}
     });
+    document.querySelectorAll('.mg-day').forEach(function(h){var e=h.nextElementSibling,vis=false;while(e&&!e.classList.contains('mg-day')){if(e.classList.contains('mg')&&!e.hidden)vis=true;e=e.nextElementSibling}h.hidden=!vis});
     none.hidden=n>0;count.textContent=v?(n===1?'1 scheda trovata':n+' schede trovate'):'';
     document.querySelectorAll('#mg-quick [data-q]').forEach(function(b){b.setAttribute('aria-pressed',String(norm(b.dataset.q)===v))});
   }
@@ -955,6 +979,24 @@ document.querySelectorAll('.check input').forEach(function(box){
     var b=e.target.closest('[data-q]');if(!b)return;q.value=b.getAttribute('aria-pressed')==='true'?'':b.dataset.q;run();
   });
   window.addEventListener('beforeprint',function(){document.querySelectorAll('.mg details').forEach(function(d){d.open=true})});
+})();
+</script>
+<script>
+(function oggi(){
+  var GIORNI={'2026-12-03':'giovedi','2026-12-04':'venerdi','2026-12-05':'sabato','2026-12-06':'domenica','2026-12-07':'lunedi'};
+  var now=new Date();
+  try{var t=new URLSearchParams(location.search).get('prova');if(t)now=new Date(t)}catch(e){}
+  var pad=function(n){return String(n).padStart(2,'0')};
+  var id=GIORNI[now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())];
+  var sec=id&&document.getElementById(id);if(!sec)return;
+  var link=document.querySelector('nav.bar a[href="#'+id+'"]');
+  if(link){link.classList.add('today');link.setAttribute('aria-current','date');link.textContent='Oggi · '+link.textContent}
+  var badge=document.createElement('span');badge.className='tag today-tag';badge.textContent='Oggi';sec.querySelector('.sec-head').appendChild(badge);
+  // La tappa in corso è l'ultima con un orario già passato
+  var mins=now.getHours()*60+now.getMinutes(),cur=null;
+  sec.querySelectorAll('.stop').forEach(function(st){var m=st.querySelector('.time').textContent.match(/(\d{1,2}):(\d{2})/);if(m&&(+m[1])*60+(+m[2])<=mins)cur=st});
+  if(cur){cur.classList.add('now');var l=document.createElement('span');l.className='now-label';l.textContent='Adesso';cur.querySelector('.time').appendChild(l)}
+  if(!location.hash)(cur||sec).scrollIntoView({block:'start'});
 })();
 </script>
 

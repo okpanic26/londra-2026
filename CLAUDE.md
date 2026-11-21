@@ -13,7 +13,7 @@ Il proprietario scrive in italiano, spesso dal telefono. Rispondi in italiano, i
 
 ## Regole
 
-1. **Il sito è pubblico.** Non inserire mai l'indirizzo dell'alloggio (resta "Londra ovest, zona 3"), numeri di telefono, codici di prenotazione, nomi completi o foto della famiglia.
+1. **Il sito è pubblico.** Non inserire mai l'indirizzo dell'alloggio (resta "zona Bayswater", senza via né numero), numeri di telefono, codici di prenotazione, nomi completi o foto della famiglia.
 2. **Pubblicazione.** GitHub Pages pubblica solo `main`. Se lavori su un altro branch, apri una pull request e chiedi al proprietario se unirla: finché non è in `main`, il sito non cambia.
 3. **Messaggi di commit** in italiano, descrittivi ("Sposta il London Eye alle 15:00"): servono per riportare poi le stesse modifiche nella versione completa che sta sul Mac.
 4. **Verifica.** Dopo ogni modifica controlla che la pagina si apra e che il JS sia valido, per esempio estraendo gli script e passandoli a `node --check`. Dopo il push, il sito si aggiorna in 1–2 minuti.
@@ -42,8 +42,9 @@ Al posto di `chromium` può servire `google-chrome` o, sul Mac, `"/Applications/
     <div class="tags"><span class="tag book">Biglietti online</span></div>
     <a class="map" href="https://www.google.com/maps/search/?api=1&query=Tower+of+London" target="_blank" rel="noopener">Apri sulla mappa ↗</a></div></li>
   ```
-  Etichette disponibili: `tag hp` (Harry Potter), `tag bond` (007 o giorno), `tag book` (da prenotare), `tag free` (gratis). Spostamenti in metro: `<div class="ride"><span class="line d">District</span> …</div>` (`line p` per la Piccadilly).
-- **Miniguida**: `<section id="miniguida">`, una `article.mg` per luogo, con `id="mg-…"` e `data-keys="Testo del titolo della tappa"` (più chiavi separate da `|`). Uno script aggiunge da solo, sotto ogni tappa il cui `<h3>` contiene una chiave, il link "Curiosità e storie". Se cambi il titolo di una tappa, aggiorna `data-keys`. Dentro: due righe in `<p>`, poi `<details>` con `ul.mg-facts` (ogni `<li>` inizia con `<b>Tema</b>`) e `p.mg-links` con i link di approfondimento.
+  Etichette disponibili: `tag hp` (Harry Potter), `tag bond` (007 o giorno), `tag book` (da prenotare), `tag free` (gratis), `tag ok` (biglietto acquistato). Spostamenti in metro: `<div class="ride"><span class="line c">Circle</span> …</div>` (`line ce` Central, `line d` District, `line p` Piccadilly, `line t` per le altre).
+- **Oggi**: uno script, durante il viaggio, evidenzia il giorno corrente nella barra e la tappa in corso (l'ultima con l'orario già passato). Per provarlo: `index.html?prova=2026-12-05T13:00`.
+- **Miniguida**: `<section id="miniguida">`, schede in ordine di giorno sotto le intestazioni `h3.mg-day`, una `article.mg` per luogo, con `id="mg-…"` e `data-keys="Testo del titolo della tappa"` (più chiavi separate da `|`). Uno script aggiunge da solo, sotto ogni tappa il cui `<h3>` contiene una chiave, il link "Curiosità e storie". Se cambi il titolo di una tappa, aggiorna `data-keys`. Dentro: due righe in `<p>`, poi `<details>` con `ul.mg-facts` (ogni `<li>` inizia con `<b>Tema</b>`) e `p.mg-links` con i link di approfondimento.
 - **Da prenotare**: `ul.check` con checkbox; ogni `input` deve avere un `id` unico (le spunte si salvano nel browser con quell'id).
 
 ## Versione completa sul Mac
